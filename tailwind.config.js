@@ -9,6 +9,18 @@ module.exports = {
     fontFamily: {
       display: ["Roboto"],
     },
+    extend: {
+      screens: {
+        'ssm': '10px',
+        'ssm2': '400px',
+      },
+      spacing: {
+        '94': '23rem',
+        '102': '25rem',
+        '112': '30rem',
+        '128': '32rem',
+      }
+    },
   },
   plugins: [],
 }

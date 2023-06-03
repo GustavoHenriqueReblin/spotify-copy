@@ -14,3 +14,12 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #888; 
 }
+
+section::-webkit-scrollbar {
+    width: 0px; 
+    background-color: transparent;
+}
+  
+section::-webkit-scrollbar-thumb {
+    background-color: transparent; 
+}
