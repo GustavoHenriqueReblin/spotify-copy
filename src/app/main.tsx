@@ -1,6 +1,5 @@
 export default () => {
     return (
-        //min-h-[calc(34rem)]
         <section className="
             h-full min-w-fit py-2 w-full pl-0 pr-2 
             ssm:hidden

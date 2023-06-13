@@ -3,11 +3,12 @@ import {Home as HomeIcon, Library, Search, Heart, Plus, ArrowRight, Pin} from 'l
 export default () => {
     return (
         <nav className="
-            h-full object-cover p-2 w-112
+            h-full object-cover p-2 
             ssm:hidden
-            md:block
+            md:block md:w-72
+            lg:w-112
         ">
-            <nav className="w-full h-28 bg-zinc-900 rounded-lg flex flex-col min-h-fit min-w-fit">
+            <nav className="w-full h-28 bg-zinc-900 rounded-lg flex flex-col min-h-fit">
                 <a href="#" className="h-1/2 pt-1.5 flex flex-row items-center gap-5 text-base font-bold mx-6 hover:text-white min-w-[calc(19rem)]">
                     <HomeIcon className=""/>
                     Início
@@ -20,7 +21,7 @@ export default () => {
             <nav className="bg-zinc-900 w-full h-[calc(100%-7.5rem)] mt-2 rounded-lg">
                 <div className="w-full h-28 rounded-t-lg flex flex-col shadow-lg shadow-zinc-950"> 
                     <div className="px-6 w-full h-1/2 flex flex-row">
-                        <a href="#" className="h-full w-1/2 flex flex-row items-center gap-5 text-base font-bold hover:text-white">
+                        <a href="#" className="h-full md:w-4/5 lg:w-1/2 flex flex-row items-center gap-5 text-base font-bold hover:text-white">
                             <Library className=""/>
                             Sua Biblioteca
                         </a>
