@@ -11,6 +11,14 @@ module.exports = {
     },
     fontSize: {
       'xxs':'0.71rem',
+      'xs':'0.75rem',
+      'sm':'0.875rem',
+      'base':'1rem',
+      'lg':'1.125rem',
+      'xl':'1.25rem',
+      'xxl':'1.4rem',
+      'h1':'2rem',
+      'h2':'1.65rem',
     },
     extend: {
       screens: {
