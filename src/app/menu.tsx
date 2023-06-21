@@ -1,6 +1,6 @@
 "use client"
 import {Home as HomeIcon, Library, Search, Plus, ArrowRight, Pin, ChevronDown, ChevronUp, Check} from 'lucide-react'
-const MainJS = require('../js/main');
+const Helper = require('../js/Helper');
 
 export default () => {
     return (
@@ -52,7 +52,7 @@ export default () => {
 
                 <div className="w-full h-[calc(100%-7rem)] mt-0.5 py-1">
                     <div className="w-full h-full m-0">
-                        <div id="playlists" onScroll={() => MainJS.changePlaylistsShadow()} className="overflow-y-auto h-full">
+                        <div id="playlists" onScroll={() => Helper.changePlaylistsShadow()} className="overflow-y-auto h-full">
                             <div className="h-8 w-full flex flex-row my-1 mb-2.5">
                                 <div className="h-full w-full items-center flex justify-start px-6">
                                     <a href="#" className="h-full w-8 hover:bg-zinc-800 items-center flex justify-center rounded-full">
@@ -101,7 +101,7 @@ export default () => {
                                     </div>
                                 </div>
                                 <div className="h-full w-full pr-3">
-                                    <a id="orderByBtn" onClick={() => MainJS.orderByClick()} className="flex flex-row justify-end items-center text-sm cursor-pointer"> Recentes
+                                    <a id="orderByBtn" onClick={() => Helper.orderByClick()} className="flex flex-row justify-end items-center text-sm cursor-pointer"> Recentes
                                         <ChevronUp id="orderByChevronUp" className="text-zinc-200 h-4 w-4 mx-1 pt-0.5 hidden"/>
                                         <ChevronDown id="orderByChevronDown" className="text-zinc-200 h-4 w-4 mx-1 pt-0.5"/>
                                     </a> 

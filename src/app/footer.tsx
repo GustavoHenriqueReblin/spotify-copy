@@ -1,6 +1,6 @@
 "use client"
 import {Heart, Cast, ShuffleIcon, SkipBack, SkipForward, Play, Pause, RepeatIcon, Mic2, ListMusic, MonitorSmartphone, Volume1, Maximize2} from 'lucide-react'
-const MainJS = require('../js/main');
+const Helper = require('../js/Helper.js');
 
 export default () => {
   return (
@@ -12,7 +12,7 @@ export default () => {
     ">
       <main id="ola" className="bg-black h-full w-full rounded-lg flex flex-row">
         <section className="w-[calc(25%)] h-full flex flex-row items-center px-2 min-w-[calc(13rem)]">
-          <div className="bg-white rounded-md mr-4 min-w-[calc(2.75rem)]
+          <div className="bg-[url('http://localhost:8080/img/TheWeeknd-SaveYourTears.png')] bg-no-repeat bg-cover rounded-md mr-4 min-w-[calc(2.75rem)]
             md:h-11 md:w-11
             lg:w-14 lg:h-14
           "></div>
@@ -55,7 +55,7 @@ export default () => {
             <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <SkipBack className="lg:h-5 md:h-4 text-white"/>
             </a>
-            <a onClick={() => MainJS.changeMusicBtn()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
+            <a onClick={() => Helper.playPauseMusic()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
               md:p-0.5 md:h-2/3
               lg:p-1.5 lg:h-2/3
             ">
@@ -70,13 +70,13 @@ export default () => {
             </a> 
           </div>
           <div className="h-1/3 w-full flex flex-row items-start justify-center"> 
-            <div className="w-fit h-4 text-xxs font-normal mx-2">0:17</div>
+            <div id="initTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>
             <div className="w-4/6 h-1 bg-zinc-700 flex flex-row rounded-lg mt-2">
               <div className="bg-white hover:bg-green-600 w-1/6 h-full flex flex-row items-center justify-end rounded-lg">
                 <div className="bg-white h-3 w-3 rounded-full"></div>
               </div>
             </div>
-            <div className="w-fit h-4 text-xxs font-normal mx-2">3:03</div>
+            <div id="finTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>
           </div>
         </section>
         <section className="bg-black w-[calc(25%)] flex flex-row h-full items-center justify-end">

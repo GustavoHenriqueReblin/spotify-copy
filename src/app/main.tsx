@@ -1,11 +1,11 @@
 "use client"
 import {ChevronLeft, ChevronRight} from 'lucide-react'
-const MainJS = require('../js/main');
+const Helper = require('../js/Helper.js');
 
 export default () => {
 
     window.onload = function() {
-        MainJS.setMainTitle();
+        Helper.onLoad();
     };
 
     return (
@@ -15,8 +15,8 @@ export default () => {
             md:block
         ">
             <header id="header" className="h-16 float-left flex flex-row fixed bg-transparent p-5
-                md:w-[calc(100%-18.48rem)]
-                lg:w-[calc(100%-24.25rem)]
+                md:w-[calc(100%-19.25rem)]
+                lg:w-[calc(100%-25rem)]
             ">
                 <div className="h-full w-1/2 flex flex-row bg-transparent">
                     <div className="bg-black w-8 h-8 rounded-full flex flex-row items-center bg-opacity-50 mr-2">
@@ -32,12 +32,12 @@ export default () => {
                 </div>
                 <div className="h-full w-1/2 flex flex-row items-center justify-end">
                     <div className="bg-black bg-no-repeat bg-cover w-8 h-8 rounded-full flex flex-row items-center bg-opacity-50 mr-2 p-1">
-                        <div className="bg-[url('../img/profile.jpg')] bg-no-repeat bg-cover w-full h-full rounded-full flex flex-row items-center"></div>
+                        <div className="bg-[url('http://localhost:8080/img/profile.jpg')] bg-no-repeat bg-cover w-full h-full rounded-full flex flex-row items-center"></div>
                     </div>
                 </div>
             </header>
 
-            <main id="mainContent" onScroll={() => MainJS.hideHeaderBG()} className="h-full bg-zinc-900 to-gray-900 rounded-lg w-full overflow-y-scroll">
+            <main id="mainContent" onScroll={() => Helper.hideHeaderBG()} className="h-full bg-zinc-900 to-gray-900 rounded-lg w-full overflow-y-scroll">
                 <div className="h-fit bg-gradient-to-b from-purple-950 to-zinc-900 pt-5 px-5">
                     <h1 id="mainTitle" className="text-h1 text-white pt-10"></h1>
 
