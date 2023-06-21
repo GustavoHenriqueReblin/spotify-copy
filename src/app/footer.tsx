@@ -1,4 +1,6 @@
+"use client"
 import {Heart, Cast, ShuffleIcon, SkipBack, SkipForward, Play, Pause, RepeatIcon, Mic2, ListMusic, MonitorSmartphone, Volume1, Maximize2} from 'lucide-react'
+const MainJS = require('../js/main');
 
 export default () => {
   return (
@@ -35,34 +37,35 @@ export default () => {
             </div>
           </div>
           <div className="h-full w-fit flex items-center mr-4">
-            <a href="#" className="hover:text-white cursor-default">
+            <a className="hover:text-white cursor-default">
                 <Heart className="lg:h-4 lg:w-4 md:h-3 md:w-3"/>
             </a>
           </div>
           <div className="h-full w-fit flex items-center">
-            <a href="#" className="hover:text-white cursor-default">
+            <a className="hover:text-white cursor-default">
                 <Cast className="lg:h-4 lg:w-4 md:h-3 md:w-3"/>
             </a>
           </div>
         </section>
         <section className="bg-black w-[calc(50%)] h-full flex flex-col">
           <div className="h-2/3 w-full flex flex-row items-center justify-center">
-            <a href="#" className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
+            <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <ShuffleIcon className="lg:h-4 md:h-3"/>
             </a>
-            <a href="#" className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
+            <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <SkipBack className="lg:h-5 md:h-4 text-white"/>
             </a>
-            <a href="#" className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
+            <a onClick={() => MainJS.changeMusicBtn()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
               md:p-0.5 md:h-2/3
               lg:p-1.5 lg:h-2/3
             ">
-                <Play className="lg:h-5 md:h-4 text-black"/>
+                <Play id="playMusicButton" className="lg:h-5 md:h-4 text-black block"/>
+                <Pause id="pauseMusicButton" className="lg:h-5 md:h-4 text-black hidden"/>
             </a>
-            <a href="#" className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
+            <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <SkipForward className="lg:h-5 md:h-4 text-white"/>
             </a>
-            <a href="#" className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
+            <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <RepeatIcon className="lg:h-4 md:h-3"/>
             </a> 
           </div>
