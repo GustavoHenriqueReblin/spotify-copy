@@ -1,6 +1,5 @@
 "use client"
 import {Home as HomeIcon, Library, Search, Plus, ArrowRight, ChevronDown, ChevronUp, Check} from 'lucide-react'
-import Link from 'next/link';
 const Helper = require('../js/Helper');
 
 export default () => {

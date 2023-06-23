@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default () => {
     return (
         <div className="lg:h-screen md:h-fit w-auto bg-gradient-to-b from-zinc-800 to-black flex flex-row items-start justify-center m-0 py-10 text-white font-bold select-none">
@@ -32,10 +34,10 @@ export default () => {
                 <div className="w-full h-[calc(1px)] bg-zinc-700"></div>
 
                 <section className="w-full h-fit px-28 flex flex-col mt-6">
-                    <a className="mt-2 text-sm">E-mail ou nome de usuário</a>
+                    <a className="mt-2 text-sm">E-mail ou nome de usuário:</a>
                     <input type="text" placeholder="E-mail ou nome de usuário" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
 
-                    <a className="mt-2 text-sm">Senha</a>
+                    <a className="mt-2 text-sm">Senha:</a>
                     <input type="password" placeholder="Senha" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
                 
                     <a className="text-xs font-medium my-3">Lembrar de mim</a>
@@ -49,7 +51,7 @@ export default () => {
 
                 <div className="w-full h-fit flex flex-row items-center justify-center mb-8">
                     <a className="text-sm text-zinc-600 font-medium cursor-text my-4 mx-2">Não tem uma conta?</a>
-                    <a className="text-sm font-medium underline cursor-pointer hover:text-green-500 my-4">Inscrever-se no Sporify</a>
+                    <Link href="../register/" className="text-sm font-medium underline cursor-pointer hover:text-green-500 my-4">Inscrever-se no Sporify</Link>
                 </div>
             </div>
         </div>

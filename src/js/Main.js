@@ -1,10 +1,10 @@
 import {Pin} from 'lucide-react'
 import ReactDOM from 'react-dom';
 
-const fecthPlaylists = async () => {
-    const res = await fetch("http://192.168.2.103:3333/playlists");
-    const playlists = res.json();
-    return playlists;
+function addClass(element, className){
+    for (let i = 0; i < className.length; i++) {
+        element.classList.add(className[i]);
+    }
 }
 
 const createPlaylistRow = (playlist) => {
@@ -55,6 +55,12 @@ const createPlaylistRow = (playlist) => {
     return mainDiv;
 }
 
+const fecthPlaylists = async () => {
+    const res = await fetch("http://192.168.2.103:3333/playlists");
+    const playlists = res.json();
+    return playlists;
+}
+
 const loadPlaylists = async () => {
     const playlists = await fecthPlaylists();
     const menuPlaylists = document.getElementById("playlists");
@@ -62,12 +68,6 @@ const loadPlaylists = async () => {
     playlists.forEach((playlist) => {
         menuPlaylists.appendChild(createPlaylistRow(playlist));
     });
-}
-
-function addClass(element, className){
-    for (let i = 0; i < className.length; i++) {
-        element.classList.add(className[i]);
-    }
 }
 
 module.exports = {
