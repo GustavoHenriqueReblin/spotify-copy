@@ -1,5 +1,6 @@
 "use client"
-import {Home as HomeIcon, Library, Search, Plus, ArrowRight, Pin, ChevronDown, ChevronUp, Check} from 'lucide-react'
+import {Home as HomeIcon, Library, Search, Plus, ArrowRight, ChevronDown, ChevronUp, Check} from 'lucide-react'
+import Link from 'next/link';
 const Helper = require('../js/Helper');
 
 export default () => {
@@ -107,25 +108,9 @@ export default () => {
                                     </a> 
                                 </div>
                             </div>
-                        
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
+                            {/* Script base do registro da playlist */}
+                            {/* <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
                                 <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
                                     <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
                                     <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
@@ -133,150 +118,14 @@ export default () => {
                                             <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Rádio de Can´t Hold Us (feat. Ray Dalton)</a>
                                         </div>
                                         <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
+                                            <a className="flex flex-row items-center">
                                                 <Pin className="h-4"/>
                                             </a>     
                                             <a className="font-semibold">Playlist - Spotify</a>
                                         </div>  
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="h-fit w-full flex flex-col px-2 max-w-[calc(22rem)]">
-                                <div className="w-full h-16 hover:bg-zinc-800 rounded-lg cursor-pointer p-2 flex flex-row">
-                                    <div className="w-12 h-full bg-black rounded-lg min-w-[calc(3rem)]"></div>
-                                    <div className="w-[calc(100%-3rem)] h-full rounded-lg ml-2 flex flex-col">
-                                        <div className="w-full h-full rounded-lg items-start flex pr-1">
-                                            <a className="font-semibold text-zinc-200 overflow-hidden overflow-ellipsis whitespace-nowrap">Músicas Curtidas</a>
-                                        </div>
-                                        <div className="w-full h-full rounded-lg flex flex-row items-center text-sm">
-                                            <a href="#" className="flex flex-row items-center">
-                                                <Pin className="h-4"/>
-                                            </a>     
-                                            <a className="font-semibold">Playlist - 46 músicas</a>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

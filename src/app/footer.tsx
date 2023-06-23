@@ -12,7 +12,7 @@ export default () => {
     ">
       <main id="ola" className="bg-black h-full w-full rounded-lg flex flex-row">
         <section className="w-[calc(25%)] h-full flex flex-row items-center px-2 min-w-[calc(13rem)]">
-          <div className="bg-[url('http://localhost:8080/img/TheWeeknd-SaveYourTears.png')] bg-no-repeat bg-cover rounded-md mr-4 min-w-[calc(2.75rem)]
+          <div className="bg-[url('http://192.168.2.103:8080/img/TheWeeknd-SaveYourTears.png')] bg-no-repeat bg-cover rounded-md mr-4 min-w-[calc(2.75rem)]
             md:h-11 md:w-11
             lg:w-14 lg:h-14
           "></div>

@@ -1,4 +1,5 @@
 import { Music } from './music.js';
+const MainJS = require('../js/Main.js');
 
 const audio = new Audio();
 
@@ -7,6 +8,8 @@ let musicTimer;
 let counter = 0;
 
 document.addEventListener("keydown", validatePressedKey);
+
+
 
 function changePlaylistsShadow(){ // Adiciona/remove sombra conforme o scroll das playlists
     const yourLibrary = document.getElementById("yourLibrary");
@@ -80,6 +83,11 @@ function playPauseMusic() { // Ao clicar no botão play/pause
 }
 
 function onLoad(){
+    if (sessionStorage.getItem("logged") == undefined || sessionStorage.getItem("logged") === "false") {
+        sessionStorage.setItem("logged", false);
+        window.location.href = "/login";
+    }
+
     // Atualiza título conforme horário
     const mainTitle = document.getElementById("mainTitle");
     const data = new Date();
@@ -98,11 +106,13 @@ function onLoad(){
 
     // Define a música
     song = new Music(
-        "Save Your Tears", "The Weeknd", "3:36", "False", "", "http://localhost:8080/TheWeeknd-SaveYourTears.mp3"
+        "Save Your Tears", "The Weeknd", "3:36", "False", "", "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3"
     );
     audio.src = song._src;
     const finTimeMusic = document.getElementById("finTimeMusic");
     finTimeMusic.textContent = song._duration;
+
+    MainJS.loadPlaylists();
 }
 
 async function timerMusic(count){ // Inicializa ou pausa o contador da música

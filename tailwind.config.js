@@ -18,6 +18,7 @@ module.exports = {
       'xl':'1.25rem',
       'xxl':'1.4rem',
       'h1':'2rem',
+      'h1+': '2.5rem',
       'h2':'1.65rem',
     },
     extend: {

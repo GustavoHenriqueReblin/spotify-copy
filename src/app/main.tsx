@@ -32,7 +32,7 @@ export default () => {
                 </div>
                 <div className="h-full w-1/2 flex flex-row items-center justify-end">
                     <div className="bg-black bg-no-repeat bg-cover w-8 h-8 rounded-full flex flex-row items-center bg-opacity-50 mr-2 p-1">
-                        <div className="bg-[url('http://localhost:8080/img/profile.jpg')] bg-no-repeat bg-cover w-full h-full rounded-full flex flex-row items-center"></div>
+                        <div className="bg-[url('http://192.168.2.103:8080/img/profile.jpg')] bg-no-repeat bg-cover bg-center w-full h-full rounded-full flex flex-row items-center"></div>
                     </div>
                 </div>
             </header>
