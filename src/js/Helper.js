@@ -144,19 +144,31 @@ function onLoad() { // Ao carregar a tela principal
 }
 
 // Ao carregar a tela de login
-function onLoadLogin(layout) {
+function onLoadLogin() {
     if (sessionStorage.getItem("logged") != undefined && sessionStorage.getItem("logged") === "true") {
         window.location.href = "../";
     } else {
         sessionStorage.setItem("logged", false);
     }
 
-    const div = document.getElementById("loginPage");
-    if (div.scrollHeight > div.clientHeight && (div.offsetHeight < div.scrollHeight)){
-        div.style.height = "fit-content";
-    }else {
-        div.style.height = "100vh";
-    }
+    resizePage("loginPage");
+}
+
+// Ao carregar a tela de login
+function onLoadRegister() {
+    resizePage("registerPage");
+}
+
+// Redimensiona a div principal
+function resizePage(id){
+    const div = document.getElementById(id);
+    // ENCONTRAR UMA VALIDAÇÃO
+    // if ((div.scrollHeight > div.clientHeight) && (div.offsetHeight < div.scrollHeight)){
+    //     div.style.height = "fit-content";
+    // }else {
+    //     div.style.height = "100vh";
+    //     //alert('ola');
+    // }
 }
 
 // Inicializa ou pausa o contador da música
@@ -186,5 +198,5 @@ function validatePressedKey(event) {
 
 module.exports = {
     changePlaylistsShadow, changeIconsState, changeInputType, getMinutesAndSeconds, getTimeInMilliseconds, 
-    hideHeaderBG, onLoad, onLoadLogin, orderByClick, playPauseMusic, timerMusic
+    hideHeaderBG, onLoad, onLoadLogin, onLoadRegister, orderByClick, playPauseMusic, timerMusic
 };

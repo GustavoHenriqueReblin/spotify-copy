@@ -37,5 +37,8 @@ module.exports = {
       }
     },
   },
+  icons: {
+    icon: './app/files/img/favicon.ico'
+  },
   plugins: [],
 }

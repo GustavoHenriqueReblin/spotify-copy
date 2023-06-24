@@ -6,7 +6,7 @@ const Helper = require('../../js/Helper.js');
 export default () => {
 
     window.onload = function() {
-        Helper.onLoadLogin("responsive");
+        Helper.onLoadLogin();
     };
 
     return (
@@ -48,7 +48,7 @@ export default () => {
 
             <div className="w-full h-fit flex flex-row items-center justify-center mb-8">
                 <a className="text-sm text-zinc-600 font-medium cursor-text my-4 mx-2">Não tem uma conta?</a>
-                <Link href="../register/" className="text-sm font-medium underline cursor-pointer hover:text-green-500 my-4">Inscrever-se no Sporify</Link>
+                <Link href="../register/" className="text-sm font-medium underline cursor-pointer text-green-500 my-4">Inscrever-se no Spotify</Link>
             </div>
         </div>
     )
