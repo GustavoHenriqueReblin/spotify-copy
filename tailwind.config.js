@@ -17,6 +17,7 @@ module.exports = {
       'lg':'1.125rem',
       'xl':'1.25rem',
       'xxl':'1.4rem',
+      'h1-':'1.75rem',
       'h1':'2rem',
       'h1+': '2.5rem',
       'h2':'1.65rem',
@@ -25,6 +26,7 @@ module.exports = {
       screens: {
         'ssm': '10px',
         'ssm2': '400px',
+        'md+': '960px',
       },
       spacing: {
         '86':'21.5rem',

@@ -1,4 +1,6 @@
-import {AlertCircle} from 'lucide-react';
+"use client"
+import {AlertCircle, Check} from 'lucide-react';
+const Helper = require('../../js/Helper.js');
 
 export default () => {
     return (
@@ -105,7 +107,8 @@ export default () => {
                     </div>
 
                     <label htmlFor="terms" className="flex items-center p-1 mr-6 mt-6">
-                        <input className="appearance-none mr-2 rounded-sm border border-white hover:border-green-500 h-4 w-4" type="checkbox" id="terms" value="Eu concordo"/>
+                        <Check id="checkRemember" className="absolute h-4 w-4 hidden"></Check>
+                        <input onChange={() => Helper.changeIconsState("checkRemember")} className="appearance-none mr-2 rounded-sm border border-white hover:border-green-500 h-4 w-4" type="checkbox" id="terms" value="Eu concordo"/>
                         <span className="text-sm font-normal">Eu concordo com os {" "}
                             <a href="#" className="text-green-500 underline">Termos e condições de uso do Spotify</a>
                             .

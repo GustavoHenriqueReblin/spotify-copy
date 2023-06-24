@@ -7,17 +7,48 @@ let song = new Music();
 let musicTimer;
 let counter = 0;
 
-document.addEventListener("keydown", validatePressedKey);
+if (sessionStorage.getItem("logged") != undefined && sessionStorage.getItem("logged") === "true") {
+    document.addEventListener("keydown", validatePressedKey);
+}
 
-
-
-function changePlaylistsShadow(){ // Adiciona/remove sombra conforme o scroll das playlists
+// Adiciona/remove sombra conforme o scroll das playlists
+function changePlaylistsShadow() { 
     const yourLibrary = document.getElementById("yourLibrary");
     const scrollTop = document.getElementById("playlists").scrollTop;
     yourLibrary.style.boxShadow = scrollTop >= 5 ? '5px 20px 40px -20px black' : 'none';
 }
 
-function getMinutesAndSeconds(milliseconds) { // Retorna em min:seg os ms passados
+// Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
+// Obs: Passar sempre o Icon com display none por padrão por primeiro...
+const changeIconsState = (checkId, idOppositeIcon = "", anotherFunction = undefined) => { 
+    const icon = document.getElementById(checkId);
+    let isItForHide = icon?.style.display === "block";
+
+    icon.style.display = isItForHide ? "none" : "block";
+    if (idOppositeIcon != "") {
+        const opositeIcon = document.getElementById(idOppositeIcon);
+        opositeIcon.style.display = !isItForHide ? "none" : "block";
+    }
+
+    if (anotherFunction != undefined) {
+        anotherFunction();
+    }
+
+    return isItForHide;
+}
+
+// Altera o tipo do input passado por parâmetro
+function changeInputType(idInput, type = ""){
+    const input = document.getElementById(idInput);
+    if (type === "") { // Pra quando não souber um tipo definido, por padrão assume como sendo password
+        input.type = input.type === "password" ? "text" : "password";
+    } else {
+        input.type = type;
+    }
+}
+
+// Retorna em min:seg os ms passados
+function getMinutesAndSeconds(milliseconds) { 
     const seconds = Math.floor(milliseconds / 100); 
     const minutes = Math.floor(seconds / 60);
     let remainingSeconds = seconds % 60;
@@ -26,13 +57,15 @@ function getMinutesAndSeconds(milliseconds) { // Retorna em min:seg os ms passad
     return { minutes, seconds: remainingSeconds };
 }
 
-function getTimeInMilliseconds(timeInMinutes) { // Retorna em ms os min:seg passados
+// Retorna em ms os min:seg passados
+function getTimeInMilliseconds(timeInMinutes) { 
     const [minutes, seconds] = timeInMinutes.split(':');
     const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
     return totalSeconds * 100;
   }
 
-function hideHeaderBG(){ // Muda opacidade e cor do header conforme posição do scroll do conteúdo principal
+// Muda opacidade e cor do header conforme posição do scroll do conteúdo principal
+function hideHeaderBG() { 
     const header = document.getElementById("header");
     const scrollTop = document.getElementById("mainContent").scrollTop;
     
@@ -49,7 +82,8 @@ function hideHeaderBG(){ // Muda opacidade e cor do header conforme posição do
     }
 }
 
-function orderByClick(){ // Abre/fecha o modal de ordenação
+// Abre/fecha o modal de ordenação
+function orderByClick() { 
     const orderByModal = document.getElementById("orderByModal");
     const orderByChevronUp = document.getElementById("orderByChevronUp");
     const orderByChevronDown = document.getElementById("orderByChevronDown");
@@ -59,30 +93,24 @@ function orderByClick(){ // Abre/fecha o modal de ordenação
         orderByChevronUp.style.display = "none";
         orderByChevronDown.style.display = "block";
     } else {
-        orderByModal.style.display =  "block"
+        orderByModal.style.display =  "block";
         orderByChevronUp.style.display = "block";
         orderByChevronDown.style.display = "none";
     }
 }
 
-function playPauseMusic() { // Ao clicar no botão play/pause
-    const play = document.getElementById("playMusicButton");
-    const pause = document.getElementById("pauseMusicButton");
-
-    if (play?.style.display === "block" || play?.style.display === "") {
-        play.style.display = "none";
-        pause.style.display = "block";
-        audio.play();
-        timerMusic(true);
-    } else {
-        play.style.display = "block";
-        pause.style.display = "none";
+// Ao clicar no botão play/pause
+function playPauseMusic() { 
+    if (changeIconsState("pauseMusicButton", "playMusicButton")) {
         audio.pause();
         timerMusic(false);
+    } else {
+        audio.play();
+        timerMusic(true);
     }
 }
 
-function onLoad(){
+function onLoad() { // Ao carregar a tela principal
     if (sessionStorage.getItem("logged") == undefined || sessionStorage.getItem("logged") === "false") {
         sessionStorage.setItem("logged", false);
         window.location.href = "/login";
@@ -115,7 +143,24 @@ function onLoad(){
     MainJS.loadPlaylists();
 }
 
-async function timerMusic(count){ // Inicializa ou pausa o contador da música
+// Ao carregar a tela de login
+function onLoadLogin(layout) {
+    if (sessionStorage.getItem("logged") != undefined && sessionStorage.getItem("logged") === "true") {
+        window.location.href = "../";
+    } else {
+        sessionStorage.setItem("logged", false);
+    }
+
+    const div = document.getElementById("loginPage");
+    if (div.scrollHeight > div.clientHeight && (div.offsetHeight < div.scrollHeight)){
+        div.style.height = "fit-content";
+    }else {
+        div.style.height = "100vh";
+    }
+}
+
+// Inicializa ou pausa o contador da música
+async function timerMusic(count) { 
     if (count) {
         musicTimer = setInterval(function() {
             const initTimeMusic = document.getElementById("initTimeMusic");
@@ -131,7 +176,8 @@ async function timerMusic(count){ // Inicializa ou pausa o contador da música
     }
 }
 
-function validatePressedKey(event){ // Valida tecla pressionada
+// Valida tecla pressionada (apenas na tela principal)
+function validatePressedKey(event) { 
     if (event.keyCode === 32 || event.key === " ") { // Espaço
         event.preventDefault();
         playPauseMusic();
@@ -139,6 +185,6 @@ function validatePressedKey(event){ // Valida tecla pressionada
 }
 
 module.exports = {
-    changePlaylistsShadow, getMinutesAndSeconds, getTimeInMilliseconds, 
-    hideHeaderBG, onLoad, orderByClick, playPauseMusic, timerMusic
+    changePlaylistsShadow, changeIconsState, changeInputType, getMinutesAndSeconds, getTimeInMilliseconds, 
+    hideHeaderBG, onLoad, onLoadLogin, orderByClick, playPauseMusic, timerMusic
 };

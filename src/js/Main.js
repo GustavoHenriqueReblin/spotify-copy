@@ -1,5 +1,4 @@
 import {Pin} from 'lucide-react'
-import ReactDOM from 'react-dom';
 
 function addClass(element, className){
     for (let i = 0; i < className.length; i++) {
@@ -42,8 +41,8 @@ const createPlaylistRow = (playlist) => {
     addClass(aPin, ["flex", "flex-row", "items-center"]);
     div06.appendChild(aPin);
 
-    const pin = document.createElement('div');
-    ReactDOM.render(<Pin />, pin);
+    // const pin = document.createElement('div');
+    // ReactDOM.render(<Pin />, pin);
 
     const aTypeAndArtist = document.createElement("a");
     addClass(aTypeAndArtist, ["font-semibold"]);
