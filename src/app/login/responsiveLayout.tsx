@@ -23,15 +23,15 @@ export default () => {
                 <div className="w-full flex flex-row">
                     <div className="h-[calc(0.05rem)] absolute w-[calc(100%-5rem)] flex justify-end">
                         <Eye 
-                            onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.changeInputType("inputPasswordResponsive"))} 
+                            onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.changeInputType("inputPasswordLoginResponsive"))} 
                             id="eyePass" className="mt-[calc(1.125rem)] lg:h-5 md:h-4 text-zinc-400 hidden"
                         />
                         <EyeOff 
-                            onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.changeInputType("inputPasswordResponsive"))} 
+                            onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.changeInputType("inputPasswordLoginResponsive"))} 
                             id="eyeOffPass" className="mt-[calc(1.125rem)] lg:h-5 md:h-4 text-zinc-400 block"
                         />
                     </div>
-                    <input id="inputPasswordResponsive" type="password" placeholder="Senha" className="float-left w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 mt-2 mb-1 border border-zinc-400 rounded-md text-base font-normal"/>
+                    <input id="inputPasswordLoginResponsive" type="password" placeholder="Senha" className="float-left w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 mt-2 mb-1 border border-zinc-400 rounded-md text-base font-normal"/>
                 </div>
                 
                 <label htmlFor="remember" className="flex flex-row items-center p-1 mr-6 mb-2">

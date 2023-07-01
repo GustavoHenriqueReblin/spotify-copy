@@ -1,22 +1,22 @@
 import { Music } from './music.js';
 const MainJS = require('../js/Main.js');
+import Message from "../app/message";
 
 const audio = new Audio();
-
 let song = new Music();
 let musicTimer;
 let counter = 0;
 
-if (sessionStorage.getItem("logged") != undefined && sessionStorage.getItem("logged") === "true") {
+if (sessionStorage.getItem("user") != undefined && sessionStorage.getItem("user") != "") {
     document.addEventListener("keydown", validatePressedKey);
-}
+};
 
 // Adiciona/remove sombra conforme o scroll das playlists
 function changePlaylistsShadow() { 
     const yourLibrary = document.getElementById("yourLibrary");
     const scrollTop = document.getElementById("playlists").scrollTop;
     yourLibrary.style.boxShadow = scrollTop >= 5 ? '5px 20px 40px -20px black' : 'none';
-}
+};
 
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
@@ -35,7 +35,7 @@ const changeIconsState = (checkId, idOppositeIcon = "", anotherFunction = undefi
     }
 
     return isItForHide;
-}
+};
 
 // Altera o tipo do input passado por parâmetro
 function changeInputType(idInput, type = ""){
@@ -45,7 +45,7 @@ function changeInputType(idInput, type = ""){
     } else {
         input.type = type;
     }
-}
+};
 
 // Retorna em min:seg os ms passados
 function getMinutesAndSeconds(milliseconds) { 
@@ -55,14 +55,39 @@ function getMinutesAndSeconds(milliseconds) {
     remainingSeconds = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
 
     return { minutes, seconds: remainingSeconds };
-}
+};
 
 // Retorna em ms os min:seg passados
 function getTimeInMilliseconds(timeInMinutes) { 
     const [minutes, seconds] = timeInMinutes.split(':');
     const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
     return totalSeconds * 100;
-  }
+};
+
+function login() {
+    let loginInputValue = document.getElementById("inputEmailLogin").value.trim();
+    let passwordInputValue = document.getElementById("inputPasswordLogin").value.trim();
+
+    if (loginInputValue == "" || passwordInputValue == "") {
+        //showMessage("Erro :/", "Preencha todos os campos...", 0);
+        alert('Preencha todos os campos...');
+    } else 
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginInputValue)) {
+        //showMessage("Erro :/", "Informe um e-mail válido!", 0);
+        alert('Informe um e-mail válido!');
+    } else {
+        const informedUser = { login: loginInputValue,  password: passwordInputValue};
+        MainJS.fecthUser(informedUser).then(data => {
+            if (data.length > 0) {
+                // Existe usuário com os dados informados
+                sessionStorage.setItem("user", data);
+                window.location.href = "../";
+            } else { 
+                alert('Usuário ou senha inválidos...');
+            }
+        });
+    }
+};
 
 // Muda opacidade e cor do header conforme posição do scroll do conteúdo principal
 function hideHeaderBG() { 
@@ -80,7 +105,7 @@ function hideHeaderBG() {
         header.style.opacity = "1";
         header.style.backgroundColor = "transparent";
     }
-}
+};
 
 // Abre/fecha o modal de ordenação
 function orderByClick() { 
@@ -97,7 +122,7 @@ function orderByClick() {
         orderByChevronUp.style.display = "block";
         orderByChevronDown.style.display = "none";
     }
-}
+};
 
 // Ao clicar no botão play/pause
 function playPauseMusic() { 
@@ -108,11 +133,11 @@ function playPauseMusic() {
         audio.play();
         timerMusic(true);
     }
-}
+};
 
 function onLoad() { // Ao carregar a tela principal
-    if (sessionStorage.getItem("logged") == undefined || sessionStorage.getItem("logged") === "false") {
-        sessionStorage.setItem("logged", false);
+    if (sessionStorage.getItem("user") == undefined || sessionStorage.getItem("user") === "") {
+        sessionStorage.removeItem("user");
         window.location.href = "/login";
     }
 
@@ -141,23 +166,23 @@ function onLoad() { // Ao carregar a tela principal
     finTimeMusic.textContent = song._duration;
 
     MainJS.loadPlaylists();
-}
+};
 
 // Ao carregar a tela de login
 function onLoadLogin() {
-    if (sessionStorage.getItem("logged") != undefined && sessionStorage.getItem("logged") === "true") {
+    if (sessionStorage.getItem("user") != undefined && sessionStorage.getItem("user") != "") {
         window.location.href = "../";
     } else {
-        sessionStorage.setItem("logged", false);
+        sessionStorage.removeItem("user");
     }
 
     resizePage("loginPage");
-}
+};
 
 // Ao carregar a tela de login
 function onLoadRegister() {
     resizePage("registerPage");
-}
+};
 
 // Redimensiona a div principal
 function resizePage(id){
@@ -169,7 +194,7 @@ function resizePage(id){
     //     div.style.height = "100vh";
     //     //alert('ola');
     // }
-}
+};
 
 // Inicializa ou pausa o contador da música
 async function timerMusic(count) { 
@@ -186,7 +211,7 @@ async function timerMusic(count) {
     }else {
         clearInterval(musicTimer);
     }
-}
+};
 
 // Valida tecla pressionada (apenas na tela principal)
 function validatePressedKey(event) { 
@@ -194,9 +219,9 @@ function validatePressedKey(event) {
         event.preventDefault();
         playPauseMusic();
     }
-}
+};
 
 module.exports = {
     changePlaylistsShadow, changeIconsState, changeInputType, getMinutesAndSeconds, getTimeInMilliseconds, 
-    hideHeaderBG, onLoad, onLoadLogin, onLoadRegister, orderByClick, playPauseMusic, timerMusic
+    login, hideHeaderBG, onLoad, onLoadLogin, onLoadRegister, orderByClick, playPauseMusic, timerMusic
 };

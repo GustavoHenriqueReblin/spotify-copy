@@ -4,7 +4,7 @@ function addClass(element, className){
     for (let i = 0; i < className.length; i++) {
         element.classList.add(className[i]);
     }
-}
+};
 
 const createPlaylistRow = (playlist) => {
     const {description, type, artistName} = playlist;
@@ -52,13 +52,22 @@ const createPlaylistRow = (playlist) => {
     div06.appendChild(aTypeAndArtist);
 
     return mainDiv;
-}
+};
 
 const fecthPlaylists = async () => {
     const res = await fetch("http://192.168.2.103:3333/playlists");
     const playlists = res.json();
     return playlists;
-}
+};
+
+const fecthUser = async (user) => {
+    const res = await fetch("http://192.168.2.103:3333/user", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
+    });
+    return res.json();
+};
 
 const loadPlaylists = async () => {
     const playlists = await fecthPlaylists();
@@ -67,8 +76,8 @@ const loadPlaylists = async () => {
     playlists.forEach((playlist) => {
         menuPlaylists.appendChild(createPlaylistRow(playlist));
     });
-}
+};
 
 module.exports = {
-    loadPlaylists
-}
+    loadPlaylists, fecthUser
+};
