@@ -1,12 +1,13 @@
 "use client"
 import Link from "next/link";
 import {Check, Eye, EyeOff} from 'lucide-react';
+const LoginHelper = require('../../js/LoginHelper.js');
 const Helper = require('../../js/Helper.js');
 
 export default () => {
 
     window.onload = function() {
-        Helper.onLoadLogin();
+        LoginHelper.onLoadLogin();
     };
 
     return (

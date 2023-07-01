@@ -1,6 +1,6 @@
 "use client"
 import {Heart, Cast, ShuffleIcon, SkipBack, SkipForward, Play, Pause, RepeatIcon, Mic2, ListMusic, MonitorSmartphone, Volume1, Maximize2} from 'lucide-react'
-const Helper = require('../js/Helper.js');
+const AppHelper = require('../js/AppHelper');
 
 export default () => {
   return (
@@ -55,7 +55,7 @@ export default () => {
             <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <SkipBack className="lg:h-5 md:h-4 text-white"/>
             </a>
-            <a onClick={() => Helper.playPauseMusic()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
+            <a onClick={() => AppHelper.playPauseMusic()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
               md:p-0.5 md:h-2/3
               lg:p-1.5 lg:h-2/3
             ">

@@ -1,11 +1,12 @@
 "use client"
 import {ChevronLeft, ChevronRight} from 'lucide-react'
 const Helper = require('../js/Helper.js');
+const AppHelper = require('../js/AppHelper.js');
 
 export default () => {
 
     window.onload = function() {
-        Helper.onLoad();
+        AppHelper.onLoad();
     };
 
     return (
@@ -37,7 +38,7 @@ export default () => {
                 </div>
             </header>
 
-            <main id="mainContent" onScroll={() => Helper.hideHeaderBG()} className="h-full bg-zinc-900 to-gray-900 rounded-lg w-full overflow-y-scroll">
+            <main id="mainContent" onScroll={() => AppHelper.hideHeaderBG()} className="h-full bg-zinc-900 to-gray-900 rounded-lg w-full overflow-y-scroll">
                 <div className="h-fit bg-gradient-to-b from-purple-950 to-zinc-900 pt-5 px-5">
                     <h1 id="mainTitle" className="text-h1 text-white pt-10"></h1>
 
