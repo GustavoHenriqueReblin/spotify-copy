@@ -7,10 +7,6 @@ let song = new Music();
 let musicTimer;
 let counter = 0;
 
-if (sessionStorage.getItem("user") != undefined && sessionStorage.getItem("user") != "") {
-    document.addEventListener("keydown", validatePressedKey);
-};
-
 // Adiciona/remove sombra conforme o scroll das playlists
 function changePlaylistsShadow() { 
     const yourLibrary = document.getElementById("yourLibrary");
@@ -65,9 +61,10 @@ function playPauseMusic() {
 };
 
 function onLoad() { // Ao carregar a tela principal
-    if (sessionStorage.getItem("user") == undefined || sessionStorage.getItem("user") === "") {
-        sessionStorage.removeItem("user");
+    if (Helper.isUserExpired()) {
         window.location.href = "/login";
+    } else {
+        document.addEventListener("keydown", validatePressedKey);
     }
 
     // Atualiza título conforme horário

@@ -1,7 +1,7 @@
 import Menu from '../app/menu'
 import Main from '../app/main'
 import Footer from '../app/footer'
-import Responsive from './responsiveLayout'
+import Responsive from './responsive'
 
 export default function Home() {
   return (

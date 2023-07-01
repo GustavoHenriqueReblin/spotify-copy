@@ -1,4 +1,4 @@
-const AppHelper = require('../js/AppHelper');
+const MainJS = require('../js/Main.js');
 
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
@@ -29,6 +29,23 @@ function changeInputType(idInput, type = ""){
     }
 };
 
+// Retorna o valor do cookie
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
 // Retorna em min:seg os ms passados
 function getMinutesAndSeconds(milliseconds) { 
     const seconds = Math.floor(milliseconds / 100); 
@@ -46,25 +63,42 @@ function getTimeInMilliseconds(timeInMinutes) {
     return totalSeconds * 100;
 };
 
+function isUserExpired () {
+    let idUserLogged = getCookie("userId") != "" ? getCookie("userId") : sessionStorage.getItem("userId");
+    if (idUserLogged === "" || idUserLogged === null) {
+        return true;
+    } else {
+        const dt = new Date();
+        const informedUser = { id: idUserLogged, login: "",  password: ""};
+
+        MainJS.fecthUser(informedUser).then(data => {
+            if (data.length > 0) {
+                const userExpiryDate = new Date(data[0].expiryDate);
+                return (dt > userExpiryDate);
+            }else{
+                return true;
+            }
+        })
+    }
+};
+
 // Depois mudar
 // Ao carregar a tela de login
 function onLoadRegister() {
     resizePage("registerPage");
 };
 
-// Redimensiona a div principal
+// Muda a altura da div passada por parâmetro
 function resizePage(id){
     const div = document.getElementById(id);
-    // ENCONTRAR UMA VALIDAÇÃO
-    // if ((div.scrollHeight > div.clientHeight) && (div.offsetHeight < div.scrollHeight)){
-    //     div.style.height = "fit-content";
-    // }else {
-    //     div.style.height = "100vh";
-    //     //alert('ola');
-    // }
+    if ((div.scrollHeight > div.clientHeight) && (div.offsetHeight < div.scrollHeight)){ // scroll visível
+        div.style.height = "fit-content";
+    }else {
+        div.style.height = "100vh";
+    }
 };
 
 module.exports = {
-    changeIconsState, changeInputType, getMinutesAndSeconds, getTimeInMilliseconds, 
-    onLoadRegister, resizePage
+    changeIconsState, changeInputType, getCookie, getMinutesAndSeconds, getTimeInMilliseconds, 
+    isUserExpired, onLoadRegister, resizePage
 };

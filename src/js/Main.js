@@ -69,6 +69,16 @@ const fecthUser = async (user) => {
     return res.json();
 };
 
+const updateUser = async (id, user) => {
+    const {login, password, name, accountLevel, dateOfBirthday, gender, expiryDate} = user; 
+
+    await fetch(`http://192.168.2.103:3333/user/${id}`, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(expiryDate === "" ? {login, password, name, accountLevel, dateOfBirthday, gender} : {expiryDate})
+    });
+}
+
 const loadPlaylists = async () => {
     const playlists = await fecthPlaylists();
     const menuPlaylists = document.getElementById("playlists");
@@ -79,5 +89,5 @@ const loadPlaylists = async () => {
 };
 
 module.exports = {
-    loadPlaylists, fecthUser
+    loadPlaylists, fecthUser, updateUser
 };

@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import {Check, Eye, EyeOff} from 'lucide-react';
+import ErrorBelowInput from "../errorBelowInput";
 const LoginHelper = require('../../js/LoginHelper.js');
 const Helper = require('../../js/Helper.js');
 
@@ -18,8 +19,8 @@ export default () => {
 
                 <form autoComplete="off" className="w-full h-fit px-28 flex flex-col my-3">
                     <a className="mt-2 text-sm">E-mail ou nome de usuário:</a>
-                    <input id="inputEmailLogin" onChange={() => {}} type="text" placeholder="E-mail ou nome de usuário" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
-                    <div id="sectionEmailLogin" className="w-full h-fit flex flex-col"></div>
+                    <input id="inputEmailLogin" onChange={() => {LoginHelper.onChangeInput("inputEmailLogin", "emailErrorBelowInput")}} type="text" placeholder="E-mail ou nome de usuário" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
+                    <ErrorBelowInput id="emailErrorBelowInput" message="Insira um e-mail válido!"></ErrorBelowInput>
 
                     <a className="mt-2 text-sm">Senha:</a>
                     <div className="w-full flex flex-row">
@@ -33,13 +34,13 @@ export default () => {
                                 id="eyeOffPass" className="mt-[calc(1.125rem)] lg:h-5 md:h-4 text-zinc-400 hover:text-white block"
                             />
                         </div>
-                        <input id="inputPasswordLogin" type="password" placeholder="Senha" className="float-left w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 mt-2 mb-1 border border-zinc-400 rounded-md text-base font-normal"/>
+                        <input id="inputPasswordLogin" onChange={() => {LoginHelper.onChangeInput("inputPasswordLogin", "passErrorBelowInput")}} type="password" placeholder="Senha" className="float-left w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 mt-2 mb-1 border border-zinc-400 rounded-md text-base font-normal"/>
                     </div>
-                    {/* <ErrorBelowInput message="Insira uma senha válida!"></ErrorBelowInput> */}
+                    <ErrorBelowInput id="passErrorBelowInput" message="Insira uma senha válida!"></ErrorBelowInput>
                     
                     <label htmlFor="remember" className="flex flex-row items-center p-1 mr-6 mb-2">
                         <Check id="checkRemember" className="absolute h-4 w-4 hidden"></Check>
-                        <input onChange={() => Helper.changeIconsState("checkRemember")} className="appearance-none mr-2 bg-black rounded-sm border border-white after:absolute hover:border-green-500 h-4 w-4" type="checkbox" id="remember" value="Eu concordo" />
+                        <input onChange={() => Helper.changeIconsState("checkRemember")} className="appearance-none mr-2 bg-black rounded-sm border border-white after:absolute hover:border-green-500 h-4 w-4" type="checkbox" id="remember" />
                         <a className="text-xs font-normal my-3">Lembrar de mim</a>
                     </label>
 
