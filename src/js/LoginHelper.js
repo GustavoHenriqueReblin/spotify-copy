@@ -16,56 +16,60 @@ const getUserExpiryDate = (loginDate) => {
 }
 
 function login() {
-    const loginInput = document.getElementById("inputEmailLogin");
-    const passInput = document.getElementById("inputPasswordLogin");
-    const emailErrorBelowInput = document.getElementById("emailErrorBelowInput");
-    const passErrorBelowInput = document.getElementById("passErrorBelowInput");
-    let loginInputValue = loginInput.value.trim();
-    let passwordInputValue = passInput.value.trim();
-    let error = false;
+    try {
+        const loginInput = document.getElementById("inputEmailLogin");
+        const passInput = document.getElementById("inputPasswordLogin");
+        const emailErrorBelowInput = document.getElementById("emailErrorBelowInput");
+        const passErrorBelowInput = document.getElementById("passErrorBelowInput");
+        let loginInputValue = loginInput.value.trim();
+        let passwordInputValue = passInput.value.trim();
+        let error = false;
 
-    if (loginInputValue == "" || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginInputValue)) {
-        emailErrorBelowInput.style.display = 'flex';
-        loginInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
-        error = true;
-    }
-    
-    if (passwordInputValue == "") {
-        passErrorBelowInput.style.display = 'flex';
-        passInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
-        error = true;
-    }
+        if (loginInputValue == "" || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(loginInputValue)) {
+            emailErrorBelowInput.style.display = 'flex';
+            loginInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
+            error = true;
+        }
+        
+        if (passwordInputValue == "") {
+            passErrorBelowInput.style.display = 'flex';
+            passInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
+            error = true;
+        }
 
-    if (loginInputValue == "" || passwordInputValue == "") {
-        //showMessage("Erro :/", "Preencha todos os campos...", 0);
-        alert('Preencha todos os campos...');
-        error = true;
-    }
+        if (loginInputValue == "" || passwordInputValue == "") {
+            //showMessage("Erro :/", "Preencha todos os campos...", 0);
+            alert('Preencha todos os campos...');
+            error = true;
+        }
 
-    if (error) {
-        Helper.resizePage("loginPage");
-    }
-    else {
-        const informedUser = { id: "", login: loginInputValue,  password: passwordInputValue};
-        MainJS.fecthUser(informedUser).then(data => {
-            if (data.length > 0) {
-                // Existe usuário com os dados informados
+        if (error) {
+            Helper.resizePage("loginPage");
+        }
+        else {
+            const informedUser = { id: "", login: loginInputValue,  password: passwordInputValue};
+            MainJS.fecthUser(informedUser).then(data => {
+                if (data.length > 0) {
+                    // Existe usuário com os dados informados
 
-                const checkRemember = document.getElementById("remember");
-                if (!checkRemember.checked) {
-                    document.cookie = "userId=";
-                    sessionStorage.setItem("userId", data[0].id);
-                } else {
-                    document.cookie = `userId=${data[0].id};`;
-                    sessionStorage.setItem("userId", "");
+                    const checkRemember = document.getElementById("remember");
+                    if (!checkRemember.checked) {
+                        document.cookie = "userId=";
+                        sessionStorage.setItem("userId", data[0].id);
+                    } else {
+                        document.cookie = `userId=${data[0].id};`;
+                        sessionStorage.setItem("userId", "");
+                    }
+                    MainJS.updateUser(data[0].id, {expiryDate:getUserExpiryDate(new Date())});
+
+                    window.location.href = "../";
+                } else { 
+                    alert('Usuário ou senha inválidos...');
                 }
-                MainJS.updateUser(data[0].id, {expiryDate:getUserExpiryDate(new Date())});
-
-                window.location.href = "../";
-            } else { 
-                alert('Usuário ou senha inválidos...');
-            }
-        });
+            });
+        }
+    } catch (error) {
+        console.error("Erro ao realizar o login:", error);
     }
 };
 
@@ -81,11 +85,11 @@ const onChangeInput = (idInput, idErrorBelowInput) => {
 
 // Ao carregar a tela de login
 function onLoadLogin() {
-    if (Helper.getCookie("userId") != undefined && Helper.getCookie("userId") != "" && !Helper.isUserExpired()) {
+    if (!Helper.isUserExpired()) {
         window.location.href = "../";
+    }else{
+        Helper.resizePage("loginPage");   
     }
-
-    Helper.resizePage("loginPage");
 };
 
 module.exports = {

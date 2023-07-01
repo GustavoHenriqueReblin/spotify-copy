@@ -55,37 +55,53 @@ const createPlaylistRow = (playlist) => {
 };
 
 const fecthPlaylists = async () => {
-    const res = await fetch("http://192.168.2.103:3333/playlists");
-    const playlists = res.json();
-    return playlists;
+    try {
+        const res = await fetch("http://192.168.2.103:3333/playlists");
+        const playlists = res.json();
+        return playlists;
+    } catch (error) {
+        console.error("Erro ao buscar as playlists:", error);
+    }
 };
 
 const fecthUser = async (user) => {
-    const res = await fetch("http://192.168.2.103:3333/user", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
-    });
-    return res.json();
+    try {
+        const res = await fetch("http://192.168.2.103:3333/user", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+        return res.json();
+    } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
+    }
 };
 
 const updateUser = async (id, user) => {
-    const {login, password, name, accountLevel, dateOfBirthday, gender, expiryDate} = user; 
+    try {
+        const {login, password, name, accountLevel, dateOfBirthday, gender, expiryDate} = user; 
 
-    await fetch(`http://192.168.2.103:3333/user/${id}`, {
-        method: "put",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(expiryDate === "" ? {login, password, name, accountLevel, dateOfBirthday, gender} : {expiryDate})
-    });
+        await fetch(`http://192.168.2.103:3333/user/${id}`, {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(expiryDate === "" ? {login, password, name, accountLevel, dateOfBirthday, gender} : {expiryDate})
+        });   
+    } catch (error) {
+        console.error("Erro ao atualizar usuário:", error);
+    }
 }
 
 const loadPlaylists = async () => {
-    const playlists = await fecthPlaylists();
-    const menuPlaylists = document.getElementById("playlists");
+    try {
+        const playlists = await fecthPlaylists();
+        const menuPlaylists = document.getElementById("playlists");
 
-    playlists.forEach((playlist) => {
-        menuPlaylists.appendChild(createPlaylistRow(playlist));
-    });
+        playlists.forEach((playlist) => {
+            menuPlaylists.appendChild(createPlaylistRow(playlist));
+        });   
+    } catch (error) {
+        console.error("Erro ao carregar as playlists em tela:", error);
+    }
 };
 
 module.exports = {

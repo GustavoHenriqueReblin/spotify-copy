@@ -63,22 +63,27 @@ function getTimeInMilliseconds(timeInMinutes) {
     return totalSeconds * 100;
 };
 
-function isUserExpired () {
-    let idUserLogged = getCookie("userId") != "" ? getCookie("userId") : sessionStorage.getItem("userId");
-    if (idUserLogged === "" || idUserLogged === null) {
-        return true;
-    } else {
-        const dt = new Date();
-        const informedUser = { id: idUserLogged, login: "",  password: ""};
+async function isUserExpired () {
+    try {
+        let idUserLogged = getCookie("userId") != "" ? getCookie("userId") : sessionStorage.getItem("userId");
+        if (idUserLogged === "" || idUserLogged === null) {
+            return true;
+        } else {
+            const dt = new Date();
+            const informedUser = { id: idUserLogged, login: "",  password: ""};
 
-        MainJS.fecthUser(informedUser).then(data => {
+            const data = await MainJS.fecthUser(informedUser);
+        
             if (data.length > 0) {
                 const userExpiryDate = new Date(data[0].expiryDate);
-                return (dt > userExpiryDate);
-            }else{
+                return dt > userExpiryDate;
+            } else {
                 return true;
             }
-        })
+        }   
+    } catch (error) {
+        console.error("Erro ao verificar expiração do usuário:", error);
+        return false;
     }
 };
 
