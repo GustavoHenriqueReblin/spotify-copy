@@ -1,4 +1,7 @@
 const MainJS = require('../js/Main.js');
+import Message from '../app/message';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
@@ -76,7 +79,7 @@ async function isUserExpired () {
         
             if (data.length > 0) {
                 const userExpiryDate = new Date(data[0].expiryDate);
-                return dt > userExpiryDate;
+                return dt >= userExpiryDate;
             } else {
                 return true;
             }
@@ -103,7 +106,29 @@ function resizePage(id){
     }
 };
 
+// Mostra uma mensagem personalizada..
+const showMessage = (title, message, bgColor, textColor, timerColor, MessageArea) => {
+    try {
+        const closeMessage = () => {
+            ReactDOM.unmountComponentAtNode(MessageArea);
+        };
+    
+        ReactDOM.render(
+            <Message
+                titleValue={title}
+                messageContent={message}
+                bgColor={bgColor}
+                textColor={textColor}
+                timerColor={timerColor}
+                closeMessage={closeMessage}
+            ></Message>, MessageArea
+        );
+    } catch (error) {
+        console.log("Erro ao mostrar mensagem personalizada:" + error);
+    }
+}
+
 module.exports = {
     changeIconsState, changeInputType, getCookie, getMinutesAndSeconds, getTimeInMilliseconds, 
-    isUserExpired, onLoadRegister, resizePage
+    isUserExpired, onLoadRegister, resizePage, showMessage
 };

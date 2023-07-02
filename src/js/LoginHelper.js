@@ -21,6 +21,7 @@ function login() {
         const passInput = document.getElementById("inputPasswordLogin");
         const emailErrorBelowInput = document.getElementById("emailErrorBelowInput");
         const passErrorBelowInput = document.getElementById("passErrorBelowInput");
+        const messageAreaLogin = document.getElementById("messageArea");
         let loginInputValue = loginInput.value.trim();
         let passwordInputValue = passInput.value.trim();
         let error = false;
@@ -38,12 +39,11 @@ function login() {
         }
 
         if (loginInputValue == "" || passwordInputValue == "") {
-            //showMessage("Erro :/", "Preencha todos os campos...", 0);
-            alert('Preencha todos os campos...');
             error = true;
         }
 
         if (error) {
+            Helper.showMessage("Erro :/", "Preencha todos os campos...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaLogin);
             Helper.resizePage("loginPage");
         }
         else {
@@ -64,7 +64,7 @@ function login() {
 
                     window.location.href = "../";
                 } else { 
-                    alert('Usuário ou senha inválidos...');
+                    Helper.showMessage("Erro :/", "Usuário ou senha inválidos...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaLogin);
                 }
             });
         }
@@ -84,12 +84,17 @@ const onChangeInput = (idInput, idErrorBelowInput) => {
 };
 
 // Ao carregar a tela de login
-function onLoadLogin() {
-    if (!Helper.isUserExpired()) {
-        window.location.href = "../";
-    }else{
-        Helper.resizePage("loginPage");   
-    }
+async function onLoadLogin() {
+    Promise.resolve(Helper.isUserExpired()).then(function(isUserExpired_) {
+        if (!isUserExpired_) {
+            window.location.href = "../";
+        } else {
+            Helper.resizePage("loginPage");   
+            window.addEventListener("submit", event => {
+                event.preventDefault();
+            });
+        }
+    });
 };
 
 module.exports = {

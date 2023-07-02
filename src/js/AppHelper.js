@@ -60,38 +60,41 @@ function playPauseMusic() {
     }
 };
 
-function onLoad() { // Ao carregar a tela principal
-    if (Helper.isUserExpired()) {
-        window.location.href = "/login";
-    } else {
-        document.addEventListener("keydown", validatePressedKey);
+async function onLoad() { // Ao carregar a tela principal
     
-        // Atualiza título conforme horário
-        const mainTitle = document.getElementById("mainTitle");
-        const data = new Date();
-        const hora = data.getHours();
-
-        if (hora >= 6 && hora < 12) {
-            mainTitle.innerText = "Bom dia";
-        } else if (hora >= 12 && hora < 18) {
-            mainTitle.innerText = "Boa tarde";
+    Promise.resolve(Helper.isUserExpired()).then(function(isUserExpired_) {
+        if (isUserExpired_) {
+            window.location.href = "/login";
         } else {
-            mainTitle.innerText = "Boa noite";
+            document.addEventListener("keydown", validatePressedKey);
+    
+            // Atualiza título conforme horário
+            const mainTitle = document.getElementById("mainTitle");
+            const data = new Date();
+            const hora = data.getHours();
+
+            if (hora >= 6 && hora < 12) {
+                mainTitle.innerText = "Bom dia";
+            } else if (hora >= 12 && hora < 18) {
+                mainTitle.innerText = "Boa tarde";
+            } else {
+                mainTitle.innerText = "Boa noite";
+            }
+            
+            // Fecha modal de ordenação
+            orderByClick(); orderByClick();
+
+            // Define a música
+            song = new Music(
+                "Save Your Tears", "The Weeknd", "3:36", "False", "", "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3"
+            );
+            audio.src = song._src;
+            const finTimeMusic = document.getElementById("finTimeMusic");
+            finTimeMusic.textContent = song._duration;
+
+            MainJS.loadPlaylists();
         }
-        
-        // Fecha modal de ordenação
-        orderByClick(); orderByClick();
-
-        // Define a música
-        song = new Music(
-            "Save Your Tears", "The Weeknd", "3:36", "False", "", "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3"
-        );
-        audio.src = song._src;
-        const finTimeMusic = document.getElementById("finTimeMusic");
-        finTimeMusic.textContent = song._duration;
-
-        MainJS.loadPlaylists();
-    }
+    });
 };
 
 // Inicializa ou pausa o contador da música
