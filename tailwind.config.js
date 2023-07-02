@@ -34,6 +34,10 @@ module.exports = {
         '102': '25rem',
         '112': '30rem',
         '128': '32rem',
+      }, 
+      colors: {
+        'sucess': '#B6E388',
+        'warning': '#ffb84d'
       }
     },
   },

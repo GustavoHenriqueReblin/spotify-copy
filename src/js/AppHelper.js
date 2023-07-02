@@ -34,12 +34,12 @@ function hideHeaderBG() {
 };
 
 // Abre/fecha o modal de ordenação
-function orderByClick() { 
+function orderByClick(forceClose) { 
     const orderByModal = document.getElementById("orderByModal");
     const orderByChevronUp = document.getElementById("orderByChevronUp");
     const orderByChevronDown = document.getElementById("orderByChevronDown");
 
-    if (orderByModal?.style.display === "block" && orderByModal?.style.display !== "") {
+    if ((orderByModal?.style.display === "block" && orderByModal?.style.display !== "") || forceClose) {
         orderByModal.style.display =  "none";
         orderByChevronUp.style.display = "none";
         orderByChevronDown.style.display = "block";
@@ -64,8 +64,11 @@ function playPauseMusic() {
 async function onLoad() { // Ao carregar a tela principal
     if (await MainJS.isUserExpired()) {
         window.location.href = "/login";
+        const messageAreaLogin = document.getElementById("messageArea");
+        Helper.showMessage("Ops... sessão expirada! :/", "Entre novamente com seus dados :)", "error", messageAreaLogin);
     } else {
         document.addEventListener("keydown", validatePressedKey);
+        document.addEventListener("click", orderByClick(true));
 
         // Atualiza título conforme horário
         const mainTitle = document.getElementById("mainTitle");
@@ -79,9 +82,6 @@ async function onLoad() { // Ao carregar a tela principal
         } else {
             mainTitle.innerText = "Boa noite";
         }
-        
-        // Fecha modal de ordenação
-        orderByClick(); orderByClick();
 
         // Define a música
         song = new Music(
@@ -92,6 +92,7 @@ async function onLoad() { // Ao carregar a tela principal
         finTimeMusic.textContent = song._duration;
 
         MainJS.loadPlaylists();
+        Helper.manageLoadingPage(true, "appLoading", "appPage");
     }
 };
 

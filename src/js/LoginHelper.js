@@ -43,7 +43,7 @@ function login() {
         }
 
         if (error) {
-            Helper.showMessage("Erro :/", "Preencha todos os campos...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaLogin);
+            Helper.showMessage("Erro :/", "Preencha todos os campos...", "error", messageAreaLogin);
             Helper.resizePage("loginPage");
         }
         else {
@@ -51,7 +51,7 @@ function login() {
             MainJS.fecthUser(informedUser).then(async data => {
                 if (data.length > 0) {
                     // Existe usuário com os dados informados
-                    
+                    Helper.manageLoadingPage(false, "loginLoading", "loginPage");
                     const checkRemember = document.getElementById("remember");
                     if (!checkRemember.checked) {
                         document.cookie = "userId=";
@@ -62,7 +62,6 @@ function login() {
                     }
                     const section = {idUser: data[0].id, ip: await Helper.getIp(), expirationDate: getUserExpiryDate(new Date())};
                     MainJS.refreshSection(section);
-
                     window.location.href = "../";
                 } else { 
                     Helper.showMessage("Erro :/", "Usuário ou senha inválidos...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaLogin);

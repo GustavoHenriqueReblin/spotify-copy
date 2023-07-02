@@ -60,7 +60,7 @@ export default () => {
                                     </a> 
                                 </div> 
                                 {/* Modal recentes */}
-                                <div id="orderByModal" className="fixed bg-zinc-800 w-64 h-48 rounded-md flex flex-col items-center py-4
+                                <div id="orderByModal" className="hidden fixed bg-zinc-800 w-64 h-48 rounded-md flex-col items-center py-4
                                     md:top-[calc(2.5rem)] md:left-[calc(5.5rem)]
                                     lg:top-[calc(17.5rem)] lg:left-[calc(16.5rem)]
                                 ">

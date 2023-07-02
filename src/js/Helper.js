@@ -38,6 +38,14 @@ function changeInputType(idInput, type = ""){
     }
 };
 
+function manageLoadingPage(close, idLoading, idPage){
+    const loading = document.getElementById(idLoading);
+    const page = document.getElementById(idPage);
+    
+    loading.style.display =  close ? "none" : "flex";
+    page.style.display =  close ? "flex" : "none";
+}
+
 // Retorna o valor do cookie
 function getCookie(cname) {
     let name = cname + "=";
@@ -57,13 +65,14 @@ function getCookie(cname) {
 
 // Pega o ip da máquina
 async function getIp(){
-    try {
-        const response = await fetch('https://api.ipify.org/?format=json');
-        const data = await response.json();
-        return data.ip;
-    } catch (error) {
-        console.error("Erro ao obter o IP:", error);
-    }
+    return "000.000.0.0"; // Implementar alguma forma de salvar ip
+    // try {
+    //     const response = await fetch('https://api.ipify.org/?format=json');
+    //     const data = await response.json();
+    //     return data.ip;
+    // } catch (error) {
+    //     console.error("Erro ao obter o IP:", error);
+    // }
 };
 
 // Retorna em min:seg os ms passados
@@ -100,7 +109,7 @@ function resizePage(id){
 };
 
 // Mostra uma mensagem personalizada..
-const showMessage = (title, message, bgColor, textColor, timerColor, MessageArea) => {
+const showMessage = (title, message, bgType, MessageArea) => {
     try {
         const closeMessage = () => {
             ReactDOM.unmountComponentAtNode(MessageArea);
@@ -110,18 +119,16 @@ const showMessage = (title, message, bgColor, textColor, timerColor, MessageArea
             <Message
                 titleValue={title}
                 messageContent={message}
-                bgColor={bgColor}
-                textColor={textColor}
-                timerColor={timerColor}
+                bgType={bgType}
                 closeMessage={closeMessage}
             ></Message>, MessageArea
         );
     } catch (error) {
-        console.log("Erro ao mostrar mensagem personalizada:" + error);
+        console.log("Erro ao mostrar mensagem personalizada: " + error);
     }
 };
 
 module.exports = {
-    addClass, changeIconsState, changeInputType, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
+    addClass, changeIconsState, changeInputType, manageLoadingPage, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
     onLoadRegister, resizePage, showMessage
 };

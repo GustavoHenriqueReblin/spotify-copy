@@ -5,15 +5,13 @@ const timeCloseAutoMessage = 3000;//ms
 
 interface messageProps{
     titleValue: string
-    messageContent: string
-    textColor: string
-    bgColor: string
-    timerColor: string
+    messageContent: String
+    bgType: string
     closeMessage: () => void
 }
 
 export default ({
-        titleValue, messageContent, textColor, bgColor, timerColor, closeMessage
+        titleValue, messageContent, bgType, closeMessage
     }: messageProps) => { 
     
     const [width, setWidth] = useState(100);
@@ -41,9 +39,35 @@ export default ({
         };
     }, [closeMessage]);
 
+    let bgColor;
+    let textColor;
+    let timerColor;
+    switch (bgType) {
+        case "error":
+            bgColor = "bg-red-400";
+            textColor = "text-black";
+            timerColor = "bg-neutral-950";
+            break;
+
+        case "sucess":
+            bgColor = "bg-sucess";
+            textColor = "text-black";
+            timerColor = "bg-neutral-950";
+            break;
+
+        case "warning":
+            bgColor = "bg-warning";
+            textColor = "text-black";
+            timerColor = "bg-neutral-950";
+            break;
+    
+        default:
+            break;
+    }
+
     return (
         <div
-        onClick={closeMessage} className={`flex flex-col h-fit w-64 max-w-80 mb-4 ${textColor} ${bgColor} rounded-md select-none cursor-pointer transition-opacity`}>
+        onClick={closeMessage} className={`flex flex-col h-fit w-64 max-w-80 mb-4 ${textColor} bg-orange-300 ${bgColor} rounded-md select-none cursor-pointer transition-opacity`}>
             <div className="w-full h-fit px-4 flex flex-row">
                 <div className="w-[calc(100%-28px)] font-bold text-lg pt-2.5 pr-5 overflow-hidden overflow-ellipsis whitespace-nowrap">
                     <a>{titleValue}</a>
