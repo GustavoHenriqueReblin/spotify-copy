@@ -49,9 +49,13 @@ const createPlaylistRow = (playlist) => {
     return mainDiv;
 };
 
-const fecthPlaylists = async () => {
+const fecthPlaylists = async (user) => {
     try {
-        const res = await fetch("http://192.168.2.103:3333/playlists");
+        const res = await fetch("http://192.168.2.103:3333/playlists", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
         const playlists = res.json();
         return playlists;
     } catch (error) {
@@ -115,7 +119,9 @@ const refreshSection = async (section) => {
 
 const loadPlaylists = async () => {
     try {
-        const playlists = await fecthPlaylists();
+        const idUserLogged = Helper.getCookie("userId") != "" ? Helper.getCookie("userId") : sessionStorage.getItem("userId");
+        const user = { idUser: idUserLogged };
+        const playlists = await fecthPlaylists(user);
         const menuPlaylists = document.getElementById("playlists");
 
         playlists.forEach((playlist) => {
