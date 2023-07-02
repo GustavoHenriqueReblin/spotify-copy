@@ -60,7 +60,6 @@ function login() {
                         document.cookie = `userId=${data[0].id};`;
                         sessionStorage.setItem("userId", "");
                     }
-                    MainJS.updateUser(data[0].id, {expiryDate:getUserExpiryDate(new Date())});
 
                     window.location.href = "../";
                 } else { 

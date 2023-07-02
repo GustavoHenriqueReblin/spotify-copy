@@ -3,6 +3,13 @@ import Message from '../app/message';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Adiciona a classe ao elemento
+function addClass(element, className){
+    for (let i = 0; i < className.length; i++) {
+        element.classList.add(className[i]);
+    }
+};
+
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
 function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefined){ 
@@ -21,6 +28,8 @@ function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefi
 
     return isItForHide;
 };
+
+
 
 // Altera o tipo do input passado por parâmetro
 function changeInputType(idInput, type = ""){
@@ -126,9 +135,9 @@ const showMessage = (title, message, bgColor, textColor, timerColor, MessageArea
     } catch (error) {
         console.log("Erro ao mostrar mensagem personalizada:" + error);
     }
-}
+};
 
 module.exports = {
-    changeIconsState, changeInputType, getCookie, getMinutesAndSeconds, getTimeInMilliseconds, 
+    addClass, changeIconsState, changeInputType, getCookie, getMinutesAndSeconds, getTimeInMilliseconds, 
     isUserExpired, onLoadRegister, resizePage, showMessage
 };
