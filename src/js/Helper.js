@@ -1,4 +1,3 @@
-const MainJS = require('../js/Main.js');
 import Message from '../app/message';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -29,8 +28,6 @@ function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefi
     return isItForHide;
 };
 
-
-
 // Altera o tipo do input passado por parâmetro
 function changeInputType(idInput, type = ""){
     const input = document.getElementById(idInput);
@@ -56,7 +53,18 @@ function getCookie(cname) {
       }
     }
     return "";
-  }
+};
+
+// Pega o ip da máquina
+async function getIp(){
+    try {
+        const response = await fetch('https://api.ipify.org/?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        console.error("Erro ao obter o IP:", error);
+    }
+};
 
 // Retorna em min:seg os ms passados
 function getMinutesAndSeconds(milliseconds) { 
@@ -73,30 +81,6 @@ function getTimeInMilliseconds(timeInMinutes) {
     const [minutes, seconds] = timeInMinutes.split(':');
     const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
     return totalSeconds * 100;
-};
-
-async function isUserExpired () {
-    try {
-        let idUserLogged = getCookie("userId") != "" ? getCookie("userId") : sessionStorage.getItem("userId");
-        if (idUserLogged === "" || idUserLogged === null) {
-            return true;
-        } else {
-            const dt = new Date();
-            const informedUser = { id: idUserLogged, login: "",  password: ""};
-
-            const data = await MainJS.fecthUser(informedUser);
-        
-            if (data.length > 0) {
-                const userExpiryDate = new Date(data[0].expiryDate);
-                return dt >= userExpiryDate;
-            } else {
-                return true;
-            }
-        }   
-    } catch (error) {
-        console.error("Erro ao verificar expiração do usuário:", error);
-        return false;
-    }
 };
 
 // Depois mudar
@@ -138,6 +122,6 @@ const showMessage = (title, message, bgColor, textColor, timerColor, MessageArea
 };
 
 module.exports = {
-    addClass, changeIconsState, changeInputType, getCookie, getMinutesAndSeconds, getTimeInMilliseconds, 
-    isUserExpired, onLoadRegister, resizePage, showMessage
+    addClass, changeIconsState, changeInputType, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
+    onLoadRegister, resizePage, showMessage
 };

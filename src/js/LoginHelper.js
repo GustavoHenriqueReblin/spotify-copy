@@ -48,10 +48,10 @@ function login() {
         }
         else {
             const informedUser = { id: "", login: loginInputValue,  password: passwordInputValue};
-            MainJS.fecthUser(informedUser).then(data => {
+            MainJS.fecthUser(informedUser).then(async data => {
                 if (data.length > 0) {
                     // Existe usuário com os dados informados
-
+                    
                     const checkRemember = document.getElementById("remember");
                     if (!checkRemember.checked) {
                         document.cookie = "userId=";
@@ -60,6 +60,8 @@ function login() {
                         document.cookie = `userId=${data[0].id};`;
                         sessionStorage.setItem("userId", "");
                     }
+                    const section = {idUser: data[0].id, ip: await Helper.getIp(), expirationDate: getUserExpiryDate(new Date())};
+                    MainJS.refreshSection(section);
 
                     window.location.href = "../";
                 } else { 
@@ -84,16 +86,14 @@ const onChangeInput = (idInput, idErrorBelowInput) => {
 
 // Ao carregar a tela de login
 async function onLoadLogin() {
-    Promise.resolve(Helper.isUserExpired()).then(function(isUserExpired_) {
-        if (!isUserExpired_) {
-            window.location.href = "../";
-        } else {
-            Helper.resizePage("loginPage");   
-            window.addEventListener("submit", event => {
-                event.preventDefault();
-            });
-        }
-    });
+    if (!(await MainJS.isUserExpired())) {
+        window.location.href = "../";
+    } else {
+        Helper.resizePage("loginPage");   
+        window.addEventListener("submit", event => {
+            event.preventDefault();
+        });
+    }
 };
 
 module.exports = {
