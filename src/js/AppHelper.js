@@ -1,10 +1,8 @@
 import {Pin} from 'lucide-react'
-import { Music } from './music.js';
 const MainJS = require('../js/Main.js');
 const Helper = require('../js/Helper.js');
 
 const audio = new Audio();
-let song = new Music();
 let musicTimer;
 let counter = 0;
 
@@ -83,13 +81,9 @@ async function onLoad() { // Ao carregar a tela principal
             mainTitle.innerText = "Boa noite";
         }
 
-        // Define a música
-        song = new Music(
-            "Save Your Tears", "The Weeknd", "3:36", "False", "", "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3"
-        );
-        audio.src = song._src;
+        audio.src = "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3";
         const finTimeMusic = document.getElementById("finTimeMusic");
-        finTimeMusic.textContent = song._duration;
+        finTimeMusic.textContent = "3:36";
 
         MainJS.loadPlaylists();
         Helper.manageLoadingPage(true, "appLoading", "appPage");
@@ -104,7 +98,7 @@ async function timerMusic(count) {
             const { minutes, seconds } = Helper.getMinutesAndSeconds(counter);
             initTimeMusic.textContent = minutes + ":" + seconds;
             counter++;
-            if (counter > Helper.getTimeInMilliseconds(song._duration)) {
+            if (counter > Helper.getTimeInMilliseconds("3:36")) {
                 clearInterval(musicTimer);
             }
         }, 10);

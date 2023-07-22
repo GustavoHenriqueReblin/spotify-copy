@@ -27,6 +27,7 @@ module.exports = {
         'ssm': '10px',
         'ssm2': '400px',
         'md+': '960px',
+        'xl+': '1386px'
       },
       spacing: {
         '86':'21.5rem',
@@ -37,7 +38,8 @@ module.exports = {
       }, 
       colors: {
         'sucess': '#B6E388',
-        'warning': '#ffb84d'
+        'warning': '#ffb84d',
+        'gray': '#1c1c1c'
       }
     },
   },

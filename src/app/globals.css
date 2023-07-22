@@ -4,6 +4,7 @@
 
 ::-webkit-scrollbar {
     width: 12px;
+    background-color: black; /* Defina a cor de fundo desejada */
 }
 ::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.01);
@@ -13,13 +14,4 @@
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #888; 
-}
-
-section::-webkit-scrollbar {
-    width: 0px; 
-    background-color: transparent;
-}
-  
-section::-webkit-scrollbar-thumb {
-    background-color: transparent; 
 }

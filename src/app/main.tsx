@@ -71,27 +71,14 @@ export default () => {
                     </section>
                 </div>
 
-                <div className="px-5">
-                    <h1 className="text-h2 text-white pt-10">Feito para Gustavo Henrique Reblin</h1>
-
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                    <div className="h-40 w-full my-2"></div>
-                </div>
+                {/* Remover */}
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
+                <div className="h-40 w-full my-2"></div>
             </main>    
         </section>
     )
