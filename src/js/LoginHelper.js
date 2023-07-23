@@ -56,9 +56,13 @@ function login() {
                     if (!checkRemember.checked) {
                         document.cookie = "userId=";
                         sessionStorage.setItem("userId", data[0].id);
+                        document.cookie = "lastMusicId=";
+                        sessionStorage.setItem("lastMusicId", data[0].idLastMusic);
                     } else {
                         document.cookie = `userId=${data[0].id};`;
                         sessionStorage.setItem("userId", "");
+                        document.cookie = `lastMusicId=${data[0].idLastMusic};`;
+                        sessionStorage.setItem("lastMusicId", "");
                     }
                     const section = {idUser: data[0].id, ip: await Helper.getIp(), expirationDate: getUserExpiryDate(new Date())};
                     MainJS.refreshSection(section);

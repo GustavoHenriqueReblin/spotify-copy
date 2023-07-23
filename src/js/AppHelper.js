@@ -81,9 +81,33 @@ async function onLoad() { // Ao carregar a tela principal
             mainTitle.innerText = "Boa noite";
         }
 
-        audio.src = "http://192.168.2.103:8080/TheWeeknd-SaveYourTears.mp3";
-        const finTimeMusic = document.getElementById("finTimeMusic");
-        finTimeMusic.textContent = "3:36";
+        let idLastMusic = Helper.getCookie("lastMusicId") != "" ? Helper.getCookie("lastMusicId") : sessionStorage.getItem("lastMusicId");
+        idLastMusic = idLastMusic === null ? 0 : idLastMusic;
+        try {
+            const lastMusic = { idMusic: idLastMusic};
+            MainJS.fetchLastMusic(lastMusic).then(async data => {
+                if (data !== undefined && data.length > 0) {
+                    const finTimeMusic = document.getElementById("finTimeMusic");
+                    const musicImage = document.getElementById("musicImage");
+                    const artistName = document.getElementById("artistName");
+                    const musicName = document.getElementById("musicName");
+
+                    audio.src = data[0].audio;
+                    
+                    musicImage.style.backgroundImage = 'none';
+                    musicImage.style.backgroundImage = `url(${data[0].image})`;
+
+                    artistName.textContent = data[0].artistsNames;  
+                    musicName.textContent = data[0].title;  
+
+                    let timeString = data[0].duration;
+                    timeString = timeString.substring(timeString.indexOf(":") + 1);
+                    finTimeMusic.textContent = timeString;  
+                }
+            });
+        } catch (error) {
+            console.log("Erro ao buscar última música: " + error);
+        }
 
         MainJS.loadPlaylists();
         Helper.manageLoadingPage(true, "appLoading", "appPage");

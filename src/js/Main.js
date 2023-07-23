@@ -49,6 +49,19 @@ const createPlaylistRow = (playlist) => {
     return mainDiv;
 };
 
+const fetchLastMusic = async (idMusic) => {
+    try {
+        const res = await fetch("http://192.168.2.103:3333/lastMusic", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(idMusic)
+        });
+        return res.json();
+    } catch (error) {
+        console.error("Erro ao buscar última música:", error);
+    }
+};
+
 const fecthPlaylists = async (user) => {
     try {
         const res = await fetch("http://192.168.2.103:3333/playlists", {
@@ -56,8 +69,7 @@ const fecthPlaylists = async (user) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
         });
-        const playlists = res.json();
-        return playlists;
+        return res.json();
     } catch (error) {
         console.error("Erro ao buscar as playlists:", error);
     }
@@ -161,5 +173,5 @@ async function isUserExpired() {
 };
 
 module.exports = {
-    loadPlaylists, fecthUser, fecthSection, updateUser, refreshSection, isUserExpired
+    loadPlaylists, fetchLastMusic, fecthUser, fecthSection, updateUser, refreshSection, isUserExpired
 };
