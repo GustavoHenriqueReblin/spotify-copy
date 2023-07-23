@@ -19,9 +19,11 @@ function login() {
     try {
         const loginInput = document.getElementById("inputEmailLogin");
         const passInput = document.getElementById("inputPasswordLogin");
+
         const emailErrorBelowInput = document.getElementById("emailErrorBelowInput");
         const passErrorBelowInput = document.getElementById("passErrorBelowInput");
-        const messageAreaLogin = document.getElementById("messageArea");
+        const messageAreaLogin = document.getElementById("messageAreaLogin");
+
         let loginInputValue = loginInput.value.trim();
         let passwordInputValue = passInput.value.trim();
         let error = false;
@@ -38,10 +40,6 @@ function login() {
             error = true;
         }
 
-        if (loginInputValue == "" || passwordInputValue == "") {
-            error = true;
-        }
-
         if (error) {
             Helper.showMessage("Erro :/", "Preencha todos os campos...", "error", messageAreaLogin);
             Helper.resizePage("loginPage");
@@ -53,6 +51,7 @@ function login() {
                     // Existe usuário com os dados informados
                     Helper.manageLoadingPage(false, "loginLoading", "loginPage");
                     const checkRemember = document.getElementById("remember");
+
                     if (!checkRemember.checked) {
                         document.cookie = "userId=";
                         sessionStorage.setItem("userId", data[0].id);
@@ -77,28 +76,29 @@ function login() {
     }
 };
 
-const onChangeInput = (idInput, idErrorBelowInput) => {
-    const input = document.getElementById(idInput);
-    const errorBelowInput = document.getElementById(idErrorBelowInput);
-    if (input.value.length > 0) {
-        errorBelowInput.style.display = 'none';
-        input.style.borderColor = 'rgb(161 161 170 / var(--tw-border-opacity))';
-    }
-    Helper.resizePage("loginPage");
-};
-
 // Ao carregar a tela de login
 async function onLoadLogin() {
-    if (!(await MainJS.isUserExpired())) {
-        window.location.href = "../";
-    } else {
-        Helper.resizePage("loginPage");   
-        window.addEventListener("submit", event => {
-            event.preventDefault();
-        });
+    const email = Helper.getCookie("userEmail");
+    const pass = Helper.getCookie("userPass");
+    if (email != "" && pass != "") {
+        Helper.deleteCookie("userEmail");
+        Helper.deleteCookie("userPass");
+        const loginInput = document.getElementById("inputEmailLogin");
+        const passInput = document.getElementById("inputPasswordLogin");
+        loginInput.value = email;
+        passInput.value = pass;
+    }else{
+        if (!(await MainJS.isUserExpired())) {
+            window.location.href = "../";
+        } else {
+            Helper.resizePage("loginPage");   
+            window.addEventListener("submit", event => {
+                event.preventDefault();
+            });
+        }     
     }
 };
 
 module.exports = {
-    login, onChangeInput, onLoadLogin
+    login, onLoadLogin
 };

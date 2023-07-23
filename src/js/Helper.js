@@ -9,6 +9,11 @@ function addClass(element, className){
     }
 };
 
+// Expira o cookie passado por parâmetro
+function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
 function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefined){ 
@@ -29,12 +34,24 @@ function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefi
 };
 
 // Altera o tipo do input passado por parâmetro
-function changeInputType(idInput, type = ""){
+function showPass(idInput, type = ""){
     const input = document.getElementById(idInput);
     if (type === "") { // Pra quando não souber um tipo definido, por padrão assume como sendo password
         input.type = input.type === "password" ? "text" : "password";
     } else {
         input.type = type;
+    }
+};
+
+const clearInputError = (idInput, idErrorBelowInput, idPage = null) => {
+    const input = document.getElementById(idInput);
+    const errorBelowInput = document.getElementById(idErrorBelowInput);
+    if (input.value.length > 0) {
+        errorBelowInput.style.display = 'none';
+        input.style.borderColor = 'rgb(161 161 170 / var(--tw-border-opacity))';
+    }
+    if (idPage !== null) {
+        resizePage(idPage);
     }
 };
 
@@ -92,12 +109,6 @@ function getTimeInMilliseconds(timeInMinutes) {
     return totalSeconds * 100;
 };
 
-// Depois mudar
-// Ao carregar a tela de login
-function onLoadRegister() {
-    resizePage("registerPage");
-};
-
 // Muda a altura da div passada por parâmetro
 function resizePage(id){
     const div = document.getElementById(id);
@@ -129,6 +140,6 @@ const showMessage = (title, message, bgType, MessageArea) => {
 };
 
 module.exports = {
-    addClass, changeIconsState, changeInputType, manageLoadingPage, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
-    onLoadRegister, resizePage, showMessage
+    addClass, changeIconsState, clearInputError, deleteCookie, manageLoadingPage, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
+    resizePage, showMessage, showPass
 };

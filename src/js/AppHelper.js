@@ -31,6 +31,58 @@ function hideHeaderBG() {
     }
 };
 
+// Atualzia o footer com as informações da música, futuramente será alterado...
+const refreshFooter = (data = null) => {
+    const elementsToDisable = [
+        "skipBackIcon",
+        "playMusicButton",
+        "pauseMusicButton",
+        "skipForwardIcon",
+        "musicTimeBar",
+        "tipMusicTimeBar",
+        "soundBar",
+        "tipSoundBar"
+    ];
+    const backgroundPlayPause = document.getElementById("backgroundPlayPause");
+    const initTimeMusic = document.getElementById("initTimeMusic");
+    const finTimeMusic = document.getElementById("finTimeMusic");
+    const musicImage = document.getElementById("musicImage");
+    const artistName = document.getElementById("artistName");
+    const musicName = document.getElementById("musicName");
+    let element;
+
+    if (data == null) {
+        // Atualiza as cores/opacidade/informações dos elementos 
+        for (let i = 0; i < elementsToDisable.length; i++) {
+            element = document.getElementById(elementsToDisable[i]);
+            element.style.opacity = "0.4";
+        };
+
+        musicImage.style.backgroundImage = 'none';
+        backgroundPlayPause.style.backgroundColor = "rgb(161 161 170 / var(--tw-text-opacity))";
+        initTimeMusic.textContent = "--:--";
+        finTimeMusic.textContent = "--:--";
+        artistName.textContent = "";  
+        musicName.textContent = "";
+    }else{
+        // Atualiza informações da música
+        audio.src = data[0].audio;
+        musicImage.style.backgroundImage = `url(${data[0].image})`;
+        artistName.textContent = data[0].artistsNames;  
+        musicName.textContent = data[0].title;  
+        let timeString = data[0].duration;
+        timeString = timeString.substring(timeString.indexOf(":") + 1);
+        finTimeMusic.textContent = timeString;  
+
+        // Atualiza as cores/opacidade dos elementos 
+        for (let i = 0; i < elementsToDisable.length; i++) {
+            element = document.getElementById(elementsToDisable[i]);
+            element.style.opacity = "1";
+        };
+        backgroundPlayPause.style.backgroundColor = "rgb(255 255 255 / var(--tw-bg-opacity))";
+    }
+}
+
 // Abre/fecha o modal de ordenação
 function orderByClick(forceClose) { 
     const orderByModal = document.getElementById("orderByModal");
@@ -82,29 +134,17 @@ async function onLoad() { // Ao carregar a tela principal
         }
 
         let idLastMusic = Helper.getCookie("lastMusicId") != "" ? Helper.getCookie("lastMusicId") : sessionStorage.getItem("lastMusicId");
-        idLastMusic = idLastMusic === null ? 0 : idLastMusic;
         try {
-            const lastMusic = { idMusic: idLastMusic};
-            MainJS.fetchLastMusic(lastMusic).then(async data => {
-                if (data !== undefined && data.length > 0) {
-                    const finTimeMusic = document.getElementById("finTimeMusic");
-                    const musicImage = document.getElementById("musicImage");
-                    const artistName = document.getElementById("artistName");
-                    const musicName = document.getElementById("musicName");
-
-                    audio.src = data[0].audio;
-                    
-                    musicImage.style.backgroundImage = 'none';
-                    musicImage.style.backgroundImage = `url(${data[0].image})`;
-
-                    artistName.textContent = data[0].artistsNames;  
-                    musicName.textContent = data[0].title;  
-
-                    let timeString = data[0].duration;
-                    timeString = timeString.substring(timeString.indexOf(":") + 1);
-                    finTimeMusic.textContent = timeString;  
-                }
-            });
+            if (idLastMusic === "null"){
+                refreshFooter();
+            }else{
+                const lastMusic = { idMusic: idLastMusic};
+                MainJS.fetchLastMusic(lastMusic).then(async data => {
+                    if (data !== undefined && data.length > 0) {
+                        refreshFooter(data);
+                    }
+                });
+            }
         } catch (error) {
             console.log("Erro ao buscar última música: " + error);
         }

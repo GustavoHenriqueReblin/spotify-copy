@@ -101,14 +101,32 @@ const fecthSection = async (section) => {
     }
 };
 
+const addUser = async (user) => {
+    try {
+        const {idLastMusic, login, password, name, accountLevel, dateOfBirthday, gender} = user; 
+
+        await fetch("http://192.168.2.103:3333/addUser", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idLastMusic, login, password, name, accountLevel, dateOfBirthday, gender
+            })
+        });   
+    } catch (error) {
+        console.error("Erro ao inserir usuário:", error);
+    }
+};
+
 const updateUser = async (id, user) => {
     try {
-        const {login, password, name, accountLevel, dateOfBirthday, gender} = user; 
+        const {idLastMusic, login, password, name, accountLevel, dateOfBirthday, gender} = user; 
 
         await fetch(`http://192.168.2.103:3333/user/${id}`, {
             method: "put",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({login, password, name, accountLevel, dateOfBirthday, gender})
+            body: JSON.stringify({
+                idLastMusic, login, password, name, accountLevel, dateOfBirthday, gender
+            })
         });   
     } catch (error) {
         console.error("Erro ao atualizar usuário:", error);
@@ -173,5 +191,6 @@ async function isUserExpired() {
 };
 
 module.exports = {
-    loadPlaylists, fetchLastMusic, fecthUser, fecthSection, updateUser, refreshSection, isUserExpired
+    loadPlaylists, fetchLastMusic, fecthUser, fecthSection, addUser, updateUser, 
+    refreshSection, isUserExpired
 };

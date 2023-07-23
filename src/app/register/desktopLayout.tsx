@@ -1,15 +1,17 @@
 "use client"
-import {AlertCircle, Check} from 'lucide-react';
+import {AlertCircle, Check, Eye, EyeOff} from 'lucide-react';
+const registerHelper = require('../../js/RegisterUserHelper.js');
 const Helper = require('../../js/Helper.js');
 
 export default () => {
 
     window.onload = function() {
-        Helper.onLoadRegister();
+        registerHelper.onLoadRegister();
     };
 
     return (
         <div id="registerPage" className="ssm:hidden h-fit w-auto bg-gradient-to-b from-zinc-800 to-black md:flex flex-row items-start justify-center m-0 py-10 text-white font-bold select-none">
+            <div id="messageAreaRegister" className="w-80 h-full absolute flex flex-col top-0 right-0 pt-14 pl-8"></div>
             <div className="bg-black lg:w-[calc(52rem)] md:w-[calc(46rem)] h-fit rounded-lg flex flex-col items-center lg:px-24 md:px-14">
                 <h1 className="text-h1 my-6">Inscreva-se grátis e comece a curtir.</h1>
 
@@ -17,36 +19,48 @@ export default () => {
 
                 <section className="w-full h-fit lg:px-20 md:px-16 flex flex-col mt-6">
                     <a className="mt-3 text-sm">Qual é o seu e-mail?</a>
-                    <input type="text" placeholder="Insira seu e-mail" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <input id="inputEmailRegister" onChange={() => {Helper.clearInputError("inputEmailRegister", "emailErrorBellowInputRegister")}} type="text" placeholder="Insira seu e-mail" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
+                    <a id="emailErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Insira um e-mail válido.
                     </a>
 
                     <a className="mt-3 text-sm">Crie uma senha:</a>
-                    <input type="password" placeholder="Crie uma senha" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <div className="w-full flex flex-row">
+                        <div className="h-[calc(0.05rem)] absolute w-[calc(29rem)] flex justify-end">
+                            <Eye 
+                                onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.showPass("inputPasswordRegister"))} 
+                                id="eyePass" className="mt-[calc(1.125rem)] lg:h-5 md:h-4 text-zinc-400 hover:text-white hidden"
+                            />
+                            <EyeOff 
+                                onClick={() => Helper.changeIconsState("eyePass", "eyeOffPass", Helper.showPass("inputPasswordRegister"))} 
+                                id="eyeOffPass" className="mt-[calc(1.125rem)] lg:h-5 md:h-4 text-zinc-400 hover:text-white block"
+                            />
+                        </div>
+                        <input id="inputPasswordRegister" onChange={() => {Helper.clearInputError("inputPasswordRegister", "passErrorBellowInputRegister")}} type="password" placeholder="Crie uma senha" className="float-left w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
+                    </div>
+                    <a id="passErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Insira uma senha válida.
                     </a>
 
                     <a className="mt-3 text-sm">Como devemos chamar você?</a>
-                    <input type="text" placeholder="Insira um nome para o perfil" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
+                    <input id="inputNameRegister" onChange={() => {Helper.clearInputError("inputNameRegister", "nameErrorBellowInputRegister")}} type="text" placeholder="Insira um nome para o perfil" className="focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 my-2 border border-zinc-400 rounded-md text-base font-normal"/>
                     <a className="text-xs font-normal mb-2">Isso aparece no seu perfil.</a>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <a id="nameErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
-                        Insira uma senha válida.
+                        Insira ao menos um nome com 3 letras.
                     </a>
 
                     <a className="mt-3 mb-1 text-sm">Qual sua data de nascimento?</a>
                     <div className="h-fit flex flex-row mb-2">
                         <div className="w-[calc(33.333%)] pr-4">
                             <a className="text-sm font-normal my-1">Dia</a>
-                            <input type="text" maxLength={2} placeholder="DD" className="w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2"/>
+                            <input id="inputDayRegister" onChange={() => {Helper.clearInputError("inputDayRegister", "dayErrorBellowInputRegister")}} type="text" maxLength={2} placeholder="DD" className="w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2"/>
                         </div>
                         <div className="w-[calc(70.333%)] pr-4">
                             <a className="text-sm font-normal my-1">Mês</a>
-                            <select defaultValue={"mesDefault"} placeholder="Mês" className="w-full overflow-hidden focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2">
+                            <select id="inputMonthRegister" defaultValue={"mesDefault"} placeholder="Mês" className="w-full overflow-hidden focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2">
                                 <option value="mesDefault" disabled>Mês</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -64,18 +78,18 @@ export default () => {
                         </div>
                         <div className="w-[calc(40.333%)]">
                             <a className="text-sm font-normal my-1">Ano</a>
-                            <input type="text" maxLength={4} placeholder="AAAA" className="w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2"/>
+                            <input id="inputYearRegister" onChange={() => {Helper.clearInputError("inputYearRegister", "yearErrorBellowInputRegister")}} type="text" maxLength={4} placeholder="AAAA" className="w-full focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2"/>
                         </div>
                     </div>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <a id="dayErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Insira um dia válido para o mês.
                     </a>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <a id="monthErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Selecione o mês do nascimento.
                     </a>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <a id="yearErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Insira um ano válido.
                     </a>
@@ -111,15 +125,15 @@ export default () => {
                         </label>
                     </div>
 
-                    <label htmlFor="terms" className="flex items-center p-1 mr-6 mt-6">
-                        <Check id="checkRemember" className="absolute h-4 w-4 hidden"></Check>
-                        <input onChange={() => Helper.changeIconsState("checkRemember")} className="appearance-none mr-2 rounded-sm border border-white hover:border-green-500 h-4 w-4" type="checkbox" id="terms" value="Eu concordo"/>
+                    <label htmlFor="inputThermsRegister" className="flex items-center p-1 mr-6 mt-6">
+                        <Check id="checkTherms" className="absolute h-4 w-4 hidden"></Check>
+                        <input id="inputThermsRegister" onChange={() => Helper.changeIconsState("checkTherms")} className="appearance-none mr-2 rounded-sm border border-white hover:border-green-500 h-4 w-4" type="checkbox" value="Eu concordo"/>
                         <span className="text-sm font-normal">Eu concordo com os {" "}
                             <a href="#" className="text-green-500 underline">Termos e condições de uso do Spotify</a>
                             .
                         </span>
                     </label>
-                    <a className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
+                    <a id="thermsErrorBellowInputRegister" className="hidden my-1 flex-row items-center gap-2 text-sm text-red-500 font-normal min-w-[calc(19rem)]">
                         <AlertCircle className="text-red-600"/>
                         Aceite os termos e condições para continuar.
                     </a>
@@ -132,7 +146,7 @@ export default () => {
                     </div>
 
                     <div className="w-full h-12 p-0.5 hover:p-0 my-5 flex justify-center">
-                        <button className="bg-green-500 w-fit rounded-full h-full cursor-default text-black px-10 py-2">Inscrever-se</button>
+                        <button onClick={() => registerHelper.register()} className="bg-green-500 w-fit rounded-full h-full cursor-default text-black px-10 py-2">Inscrever-se</button>
                     </div>
 
                     <div className="w-full h-fit my-4 flex items-center justify-center">

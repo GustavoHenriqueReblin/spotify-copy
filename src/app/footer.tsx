@@ -4,15 +4,15 @@ const AppHelper = require('../js/AppHelper');
 
 export default () => {
   return (
-    <footer className="
+    <footer id="footer" className="
       bg-black h-24 w-full px-2 pb-1
       ssm:hidden
       md:block md:max-h-[calc(4rem)]
       lg:max-h-[calc(6rem)]
     ">
-      <main id="ola" className="bg-black h-full w-full rounded-lg flex flex-row">
+      <main className="bg-black h-full w-full rounded-lg flex flex-row">
         <section className="w-[calc(25%)] h-full flex flex-row items-center px-2 min-w-[calc(13rem)]">
-          <div id="musicImage" className="bg-[url('http://192.168.2.103:8080/img/TheWeeknd-SaveYourTears.png')] bg-no-repeat bg-cover rounded-md mr-4 min-w-[calc(2.75rem)]
+          <div id="musicImage" className="bg-no-repeat bg-cover rounded-md mr-4 min-w-[calc(2.75rem)]
             md:h-11 md:w-11
             lg:w-14 lg:h-14
           "></div>
@@ -23,7 +23,7 @@ export default () => {
                 md:max-w-[calc(5rem)]
               ">
                 <a id="musicName" href="#" className="text-xs font-semibold text-white hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap">
-                    Save Your Tears
+                    {/* Save Your Tears */}
                 </a>
               </div>
               <div className="h-fit w-full flex items-start
@@ -31,7 +31,7 @@ export default () => {
                 md:max-w-[calc(5rem)]
               ">
                 <a id="artistName" href="#" className="text-xxs font-normal text-zinc-400 hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap">
-                    Milky Chance
+                    {/* Milky Chance */}
                 </a>
               </div>
             </div>
@@ -53,9 +53,9 @@ export default () => {
                 <ShuffleIcon className="lg:h-4 md:h-3"/>
             </a>
             <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
-                <SkipBack className="lg:h-5 md:h-4 text-white"/>
+                <SkipBack id="skipBackIcon" className="lg:h-5 md:h-4 text-white"/>
             </a>
-            <a onClick={() => AppHelper.playPauseMusic()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
+            <a id="backgroundPlayPause" onClick={() => AppHelper.playPauseMusic()} className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default bg-white rounded-full
               md:p-0.5 md:h-2/3
               lg:p-1.5 lg:h-2/3
             ">
@@ -63,7 +63,7 @@ export default () => {
                 <Pause id="pauseMusicButton" className="lg:h-5 md:h-4 text-black hidden"/>
             </a>
             <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
-                <SkipForward className="lg:h-5 md:h-4 text-white"/>
+                <SkipForward id="skipForwardIcon" className="lg:h-5 md:h-4 text-white"/>
             </a>
             <a className="flex flex-row items-center lg:mx-2 md:mx-1 cursor-default">
                 <RepeatIcon className="lg:h-4 md:h-3"/>
@@ -72,8 +72,8 @@ export default () => {
           <div className="h-1/3 w-full flex flex-row items-start justify-center"> 
             <div id="initTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>
             <div className="w-4/6 h-1 bg-zinc-700 flex flex-row rounded-lg mt-2">
-              <div className="bg-white hover:bg-green-600 w-1/6 h-full flex flex-row items-center justify-end rounded-lg">
-                <div className="bg-white h-3 w-3 rounded-full"></div>
+              <div id="musicTimeBar" className="bg-white hover:bg-green-600 w-1/6 h-full flex flex-row items-center justify-end rounded-lg">
+                <div id="tipMusicTimeBar" className="bg-white h-3 w-3 rounded-full"></div>
               </div>
             </div>
             <div id="finTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>
@@ -93,8 +93,8 @@ export default () => {
               <Volume1 className="lg:h-5 md:h-4 ml-1 text-zinc-400"/>
           </a>
           <div className="w-1/4 h-1 bg-zinc-700 flex flex-row rounded-xl mx-1 md:min-w-[calc(3rem)]">
-            <div className="bg-white hover:bg-green-600 w-2/3 h-full flex flex-row items-center justify-end rounded-xl">
-              <div className="bg-white h-3 w-3 rounded-full"></div>
+            <div id="soundBar" className="bg-white hover:bg-green-600 w-2/3 h-full flex flex-row items-center justify-end rounded-xl">
+              <div id="tipSoundBar" className="bg-white h-3 w-3 rounded-full"></div>
             </div>
           </div>
           <a href="#" className="cursor-default">
