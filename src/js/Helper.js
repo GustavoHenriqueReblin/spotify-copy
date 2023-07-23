@@ -16,8 +16,8 @@ function deleteCookie(name) {
 
 // Mostra ou oculta o primeiro Icon passado por parâmetro e faz o oposto para o outro. Retorno é true quando o primeiro ícone estava visível
 // Obs: Passar sempre o Icon com display none por padrão por primeiro...
-function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefined){ 
-    const icon = document.getElementById(checkId);
+function changeIconsState(idIcon, idOppositeIcon = "", anotherFunction = undefined){ 
+    const icon = document.getElementById(idIcon);
     let isItForHide = icon?.style.display === "block";
 
     icon.style.display = isItForHide ? "none" : "block";
@@ -33,35 +33,26 @@ function changeIconsState(checkId, idOppositeIcon = "", anotherFunction = undefi
     return isItForHide;
 };
 
-// Altera o tipo do input passado por parâmetro
-function showPass(idInput, type = ""){
-    const input = document.getElementById(idInput);
-    if (type === "") { // Pra quando não souber um tipo definido, por padrão assume como sendo password
-        input.type = input.type === "password" ? "text" : "password";
-    } else {
-        input.type = type;
-    }
-};
-
+// Se o erro estiver visível oculta-o e remove a borda vermelha
 const clearInputError = (idInput, idErrorBelowInput, idPage = null) => {
     const input = document.getElementById(idInput);
     const errorBelowInput = document.getElementById(idErrorBelowInput);
-    if (input.value.length > 0) {
-        errorBelowInput.style.display = 'none';
-        input.style.borderColor = 'rgb(161 161 170 / var(--tw-border-opacity))';
+    const eyePass = document.getElementById("eyePass");
+    
+    if (errorBelowInput.style.display != "none") {
+        if (input.value.length > 0) {
+            errorBelowInput.style.display = "none";
+            input.style.borderColor = "rgb(161 161 170 / var(--tw-border-opacity))";
+        }
+        if (idPage !== null) {
+            resizePage(idPage);
+        }
     }
-    if (idPage !== null) {
-        resizePage(idPage);
+
+    if (eyePass.style.display != "none") {
+        changeIconsState("eyePass", "eyeOffPass");
     }
 };
-
-function manageLoadingPage(close, idLoading, idPage){
-    const loading = document.getElementById(idLoading);
-    const page = document.getElementById(idPage);
-    
-    loading.style.display =  close ? "none" : "flex";
-    page.style.display =  close ? "flex" : "none";
-}
 
 // Retorna o valor do cookie
 function getCookie(cname) {
@@ -109,6 +100,15 @@ function getTimeInMilliseconds(timeInMinutes) {
     return totalSeconds * 100;
 };
 
+// Mostra/oculta página de loading enquanto o backend não retorna com os dados
+function manageLoadingPage(close, idLoading, idPage){
+    const loading = document.getElementById(idLoading);
+    const page = document.getElementById(idPage);
+    
+    loading.style.display =  close ? "none" : "flex";
+    page.style.display =  close ? "flex" : "none";
+};
+
 // Muda a altura da div passada por parâmetro
 function resizePage(id){
     const div = document.getElementById(id);
@@ -139,7 +139,17 @@ const showMessage = (title, message, bgType, MessageArea) => {
     }
 };
 
+// Altera o tipo do input passado por parâmetro
+function showPass(idInput, type = ""){
+    const input = document.getElementById(idInput);
+    if (type === "") { // Pra quando não souber um tipo definido, por padrão assume como sendo password
+        input.type = input.type === "password" ? "text" : "password";
+    } else {
+        input.type = type;
+    }
+};
+
 module.exports = {
-    addClass, changeIconsState, clearInputError, deleteCookie, manageLoadingPage, getCookie, getIp, getMinutesAndSeconds, getTimeInMilliseconds, 
-    resizePage, showMessage, showPass
+    addClass, changeIconsState, clearInputError, deleteCookie, manageLoadingPage, getCookie, getIp, 
+    getMinutesAndSeconds, getTimeInMilliseconds, resizePage, showMessage, showPass
 };
