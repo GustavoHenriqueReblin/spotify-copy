@@ -93,7 +93,7 @@ function register(){
                 document.cookie = `userPass=${passwordInputValue};`;
                 window.location.href = "../login";
             }else{
-                Helper.showMessage("Erro :/", "Ocorreu algum erro durante o registro...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaRegister); 
+                Helper.showMessage("Erro :/", "Ocorreu algum erro durante o registro...", "error", messageAreaRegister);
             }
         }
     } catch (error) {

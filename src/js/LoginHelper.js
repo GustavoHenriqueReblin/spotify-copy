@@ -67,7 +67,7 @@ function login() {
                     MainJS.refreshSection(section);
                     window.location.href = "../";
                 } else { 
-                    Helper.showMessage("Erro :/", "Usuário ou senha inválidos...", "bg-red-400", "text-black", "bg-neutral-950", messageAreaLogin);
+                    Helper.showMessage("Erro :/", "Usuário ou senha inválidos...", "error", messageAreaLogin);
                 }
             });
         }
