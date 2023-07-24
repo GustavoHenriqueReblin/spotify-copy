@@ -60,7 +60,7 @@ export default () => {
                         </div>
                         <div className="w-[calc(70.333%)] pr-4">
                             <a className="text-sm font-normal my-1">Mês</a>
-                            <select id="inputMonthRegister" defaultValue={"mesDefault"} placeholder="Mês" className="w-full overflow-hidden focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 border border-zinc-400 rounded-md text-base font-normal mt-2">
+                            <select id="inputMonthRegister" defaultValue={"mesDefault"} onChange={() => {Helper.clearInputError("inputMonthRegister", "monthErrorBellowInputRegister")}} placeholder="Mês" className="w-full overflow-hidden focus:outline-none focus:ring focus:ring-white bg-zinc-900 p-2 pb-[calc(9px)] border border-zinc-400 rounded-md text-base font-normal mt-2">
                                 <option value="mesDefault" disabled>Mês</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -96,29 +96,18 @@ export default () => {
 
                     <a className="mt-3 mb-1 text-sm">Qual seu gênero?</a>
                     <div className="flex flex-row">
-                        {/* onClick={() => Helper.setThemeGenderSelected("inputGender2")} */}
-                        <div>
-                            <label id="inputGender1" htmlFor="optionGen1" className="flex items-center p-1 mr-5">
-                                <input className="appearance-none border border-white hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="inputGender1" value="1"/>
-                                <span className="text-sm font-normal">Masculino</span>
-                            </label>
-                        </div>
-
-                        {/* onClick={() => Helper.setThemeGenderSelected("inputGender2")} */}
-                        <div>
-                            <label id="inputGender2" htmlFor="optionGen2" className="flex items-center p-1 mr-5">
-                                <input className="appearance-none border border-white hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="optionGen2" value="2"/>
-                                <span className="text-sm font-normal">Feminino</span>
-                            </label>
-                        </div>
-
-                        {/* onClick={() => Helper.setThemeGenderSelected("inputGender3")} */}
+                        <label id="inputGender1" htmlFor="optionGen1" className="flex items-center p-1 mr-5">
+                            <input className="appearance-none border border-white hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="inputGender1" value="1"/>
+                            <span className="text-sm font-normal">Masculino</span>
+                        </label>
+                        <label id="inputGender2" htmlFor="optionGen2" className="flex items-center p-1 mr-5">
+                            <input className="appearance-none border border-white hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="optionGen2" value="2"/>
+                            <span className="text-sm font-normal">Feminino</span>
+                        </label>
                         <label id="inputGender3" htmlFor="optionGen3" className="flex items-center p-1 mr-5">
                             <input className="appearance-none border-4 border-green-500 hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="optionGen3" value="3"/>
                             <span className="text-sm font-normal">Outros</span>
                         </label>
-
-                        {/* onClick={() => Helper.setThemeGenderSelected("inputGender4")} */}
                         <label id="inputGender4" htmlFor="optionGen4" className="flex items-center p-1 mr-5">
                             <input className="appearance-none border border-white hover:border-green-500 mr-1.5 w-4 h-4 rounded-full" type="radio" id="optionGen4" value="4" />
                             <span className="text-sm font-normal">Prefiro não dizer</span>

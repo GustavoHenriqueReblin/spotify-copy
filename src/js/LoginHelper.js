@@ -46,7 +46,7 @@ function login() {
         }
         else {
             const informedUser = { id: "", login: loginInputValue,  password: passwordInputValue};
-            MainJS.fecthUser(informedUser).then(async data => {
+            MainJS.fetchUser(informedUser).then(async data => {
                 if (data.length > 0) {
                     // Existe usuário com os dados informados
                     Helper.manageLoadingPage(false, "loginLoading", "loginPage");
@@ -79,14 +79,10 @@ function login() {
 // Ao carregar a tela de login
 async function onLoadLogin() {
     const email = Helper.getCookie("userEmail");
-    const pass = Helper.getCookie("userPass");
-    if (email != "" && pass != "") {
+    if (email != "") {
         Helper.deleteCookie("userEmail");
-        Helper.deleteCookie("userPass");
         const loginInput = document.getElementById("inputEmailLogin");
-        const passInput = document.getElementById("inputPasswordLogin");
         loginInput.value = email;
-        passInput.value = pass;
     }else{
         if (!(await MainJS.isUserExpired())) {
             window.location.href = "../";

@@ -26,11 +26,12 @@ function register(){
         
         const messageAreaRegister = document.getElementById("messageAreaRegister");
 
-        let loginInputValue = loginInput.value.trim();
+        let loginInputValue = loginInput.value.trim().toLowerCase();
         let passwordInputValue = passInput.value.trim();
         let nameInputValue = nameInput.value.trim();
         let dayInputValue = dayInput.value.trim();
         let monthInputValue = monthInput.value.trim();
+        let monthDefaultValue = monthInput.defaultValue;
         let yearInputValue = yearInput.value.trim();
         let error = false;
 
@@ -55,6 +56,12 @@ function register(){
         if (dayInputValue == "" || isNaN(dayInputValue)) {
             dayError.style.display = 'flex';
             dayInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
+            error = true;
+        }
+
+        if (monthDefaultValue != monthInputValue) {
+            monthError.style.display = 'flex';
+            monthInput.style.borderColor = 'rgb(220 38 38 / var(--tw-text-opacity))';
             error = true;
         }
 
@@ -90,7 +97,6 @@ function register(){
             
             if (MainJS.addUser(informedUser)) {
                 document.cookie = `userEmail=${loginInputValue};`;
-                document.cookie = `userPass=${passwordInputValue};`;
                 window.location.href = "../login";
             }else{
                 Helper.showMessage("Erro :/", "Ocorreu algum erro durante o registro...", "error", messageAreaRegister);

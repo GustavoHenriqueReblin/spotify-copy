@@ -4,7 +4,7 @@
 
 ::-webkit-scrollbar {
     width: 12px;
-    background-color: black; /* Defina a cor de fundo desejada */
+    background: linear-gradient(to bottom, #1b1b1b, #0c0c0c); /* Defina a cor de fundo desejada */
 }
 ::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.01);

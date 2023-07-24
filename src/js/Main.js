@@ -75,7 +75,7 @@ const fecthPlaylists = async (user) => {
     }
 };
 
-const fecthUser = async (user) => {
+const fetchUser = async (user) => {
     try {
         const res = await fetch("http://192.168.2.103:3333/user", {
             method: "post",
@@ -191,6 +191,6 @@ async function isUserExpired() {
 };
 
 module.exports = {
-    loadPlaylists, fetchLastMusic, fecthUser, fecthSection, addUser, updateUser, 
+    loadPlaylists, fetchLastMusic, fetchUser, fecthSection, addUser, updateUser, 
     refreshSection, isUserExpired
 };
