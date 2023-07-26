@@ -15,7 +15,7 @@ export default () => {
             ssm:hidden
             md:block
         ">
-            <header id="header" className="h-16 float-left flex flex-row fixed bg-transparent p-5
+            <header id="header" className="h-16 float-left flex flex-row fixed bg-transparent p-5 rounded-t-md
                 md:w-[calc(100%-19.25rem)]
                 lg:w-[calc(100%-25rem)]
             ">

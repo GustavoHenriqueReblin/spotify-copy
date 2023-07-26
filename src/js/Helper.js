@@ -100,6 +100,13 @@ function getTimeInMilliseconds(timeInMinutes) {
     return totalSeconds * 100;
 };
 
+// Retorna em ms os min:seg passados
+function getTimeInSeconds(timeInMinutes) { 
+    const [minutes, seconds] = timeInMinutes.split(':');
+    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
+    return totalSeconds;
+};
+
 // Mostra/oculta página de loading enquanto o backend não retorna com os dados
 function manageLoadingPage(close, idLoading, idPage){
     const loading = document.getElementById(idLoading);
@@ -151,5 +158,5 @@ function showPass(idInput, type = ""){
 
 module.exports = {
     addClass, changeIconsState, clearInputError, deleteCookie, manageLoadingPage, getCookie, getIp, 
-    getMinutesAndSeconds, getTimeInMilliseconds, resizePage, showMessage, showPass
+    getMinutesAndSeconds, getTimeInMilliseconds, getTimeInSeconds, resizePage, showMessage, showPass
 };

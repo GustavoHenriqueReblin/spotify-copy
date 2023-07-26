@@ -13,6 +13,47 @@ function changePlaylistsShadow() {
     yourLibrary.style.boxShadow = scrollTop >= 5 ? '5px 20px 40px -20px black' : 'none';
 };
 
+// Chamada no click da barra do timer da música
+function changeTimeOfMusic(event){
+    const finTimeMusic = document.getElementById("finTimeMusic");
+    const musicTimeBar = document.getElementById("musicTimeBar");
+    const musicTimeBarBack = document.getElementById("musicTimeBarBackground");
+
+    const positionMouseX = event.clientX - musicTimeBarBack.getBoundingClientRect().left;
+    const totalSecondsCurrentMusic = Helper.getTimeInSeconds(finTimeMusic.textContent);
+    const widthMusicTimeBar = musicTimeBarBack.clientWidth;
+
+    // Atualiza a largura da div que representa o tempo da música
+    musicTimeBar.style.width = (Math.round(positionMouseX) + 12) + "px";
+    
+
+    const pxPerSecond = widthMusicTimeBar / totalSecondsCurrentMusic;
+};
+
+// Chamada ao manter clicado na bolinha do timer da música
+function dragMusicBar(isPressed) {
+    const musicTimeBarBack = document.getElementById("musicTimeBarBackground");
+    const musicTimeBar = document.getElementById("musicTimeBar");
+    let pressedTimeout;
+    let moveCallback;
+
+    if (isPressed) {
+        pressedTimeout = setTimeout(() => {
+            moveCallback = (event) => {
+                let positionMouseX = event.clientX - musicTimeBarBack.getBoundingClientRect().left;
+                if (Math.round(positionMouseX) > 0 && Math.round(positionMouseX) <= musicTimeBarBack.clientWidth) {
+                    musicTimeBar.style.width = (Math.round(positionMouseX) + 12) + "px";
+                }
+            };
+
+            document.addEventListener('mousemove', moveCallback);
+        }, 100);
+    } else {
+        document.removeEventListener("mousemove", moveCallback);
+        clearTimeout(pressedTimeout);
+    }
+};
+
 // Muda opacidade e cor do header conforme posição do scroll do conteúdo principal
 function hideHeaderBG() { 
     const header = document.getElementById("header");
@@ -30,6 +71,15 @@ function hideHeaderBG() {
         header.style.backgroundColor = "transparent";
     }
 };
+
+function hoverMusicTimeBar(isEntering){
+    const musicTimeBar = document.getElementById("musicTimeBar");
+    if (isEntering) {
+        musicTimeBar.style.backgroundColor = "rgb(22 163 74 / var(--tw-bg-opacity))";
+    } else {
+        musicTimeBar.style.backgroundColor = "rgb(255 255 255 / var(--tw-bg-opacity))";
+    }
+}
 
 // Atualzia o footer com as informações da música, futuramente será alterado...
 const refreshFooter = (data = null) => {
@@ -180,6 +230,6 @@ function validatePressedKey(event) {
 };
 
 module.exports = {
-    changePlaylistsShadow, hideHeaderBG, onLoad, orderByClick, 
+    changePlaylistsShadow, changeTimeOfMusic, dragMusicBar, hideHeaderBG, hoverMusicTimeBar, onLoad, orderByClick, 
     playPauseMusic, timerMusic
 };
