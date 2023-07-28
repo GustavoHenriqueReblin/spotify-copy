@@ -69,18 +69,20 @@ export default () => {
                 <RepeatIcon className="lg:h-4 md:h-3"/>
             </a> 
           </div>
-          <div className="h-1/3 w-full flex flex-row items-start justify-center"> 
+          <div className="h-1/3 w-full flex flex-row items-start justify-center mt-0.5"> 
             <div id="initTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>
             <div id="musicTimeBarBackground" 
               onClick={() => AppHelper.changeTimeOfMusic(event)} 
               onMouseEnter={() => AppHelper.hoverMusicTimeBar(true)} 
               onMouseLeave={() => AppHelper.hoverMusicTimeBar(false)}
-              className="w-4/6 h-1 bg-zinc-700 flex flex-row rounded-lg mt-2">
-              <div id="musicTimeBar" className="bg-white hover:bg-green-600 w-1/6 h-full flex flex-row items-center justify-end rounded-lg">
+              className="w-4/6 h-2 mt-1">
+              <div className="w-full h-1 bg-zinc-700 flex flex-row rounded-lg my-[calc(0.2rem)]">
+                <div id="musicTimeBar" className="bg-white hover:bg-green-600 w-[calc(0px)] h-full flex flex-row items-center justify-end rounded-lg"></div>
                 <div 
-                  onMouseDown={() => AppHelper.dragMusicBar(true)} 
-                  onMouseUp={() => AppHelper.dragMusicBar(false)} 
-                  id="tipMusicTimeBar" className="bg-white h-3 w-3 rounded-full"></div>
+                    onMouseDown={() => AppHelper.dragMusicBar(true)} 
+                    onMouseUp={() => AppHelper.dragMusicBar(false)} 
+                    id="tipMusicTimeBar" className="hidden bg-white h-3 w-3 rounded-full mt-[calc(-4px)]">    
+                </div>
               </div>
             </div>
             <div id="finTimeMusic" className="w-fit h-4 text-xxs font-normal mx-2">0:00</div>

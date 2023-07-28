@@ -5,6 +5,7 @@ const Helper = require('../js/Helper.js');
 const audio = new Audio();
 let musicTimer;
 let counter = 0;
+let pxPerSecond;
 
 // Adiciona/remove sombra conforme o scroll das playlists
 function changePlaylistsShadow() { 
@@ -15,42 +16,37 @@ function changePlaylistsShadow() {
 
 // Chamada no click da barra do timer da música
 function changeTimeOfMusic(event){
-    const finTimeMusic = document.getElementById("finTimeMusic");
     const musicTimeBar = document.getElementById("musicTimeBar");
     const musicTimeBarBack = document.getElementById("musicTimeBarBackground");
 
     const positionMouseX = event.clientX - musicTimeBarBack.getBoundingClientRect().left;
-    const totalSecondsCurrentMusic = Helper.getTimeInSeconds(finTimeMusic.textContent);
-    const widthMusicTimeBar = musicTimeBarBack.clientWidth;
-
     // Atualiza a largura da div que representa o tempo da música
-    musicTimeBar.style.width = (Math.round(positionMouseX) + 12) + "px";
-    
+    musicTimeBar.style.width = (Math.round(positionMouseX) - 5) + "px";
 
-    const pxPerSecond = widthMusicTimeBar / totalSecondsCurrentMusic;
+    const initTimeMusic = document.getElementById("initTimeMusic");
+    const widthTimeBar = musicTimeBar.style.width.replace("px", "");
+    const totalInMiliSeconds = Math.round(widthTimeBar / pxPerSecond) * 100;
+
+    const { minutes, seconds } = Helper.getMinutesAndSeconds(totalInMiliSeconds);
+    initTimeMusic.textContent = minutes + ":" + seconds;
 };
 
 // Chamada ao manter clicado na bolinha do timer da música
 function dragMusicBar(isPressed) {
     const musicTimeBarBack = document.getElementById("musicTimeBarBackground");
     const musicTimeBar = document.getElementById("musicTimeBar");
-    let pressedTimeout;
-    let moveCallback;
+
+    let moveCallback = (event) => {
+        let positionMouseX = event.clientX - musicTimeBarBack.getBoundingClientRect().left;
+        if (Math.round(positionMouseX) > 0 && Math.round(positionMouseX) <= musicTimeBarBack.clientWidth) {
+            musicTimeBar.style.width = (Math.round(positionMouseX) - 5) + "px";
+        }
+    };
 
     if (isPressed) {
-        pressedTimeout = setTimeout(() => {
-            moveCallback = (event) => {
-                let positionMouseX = event.clientX - musicTimeBarBack.getBoundingClientRect().left;
-                if (Math.round(positionMouseX) > 0 && Math.round(positionMouseX) <= musicTimeBarBack.clientWidth) {
-                    musicTimeBar.style.width = (Math.round(positionMouseX) + 12) + "px";
-                }
-            };
-
-            document.addEventListener('mousemove', moveCallback);
-        }, 100);
+        document.addEventListener('mousemove', moveCallback);
     } else {
         document.removeEventListener("mousemove", moveCallback);
-        clearTimeout(pressedTimeout);
     }
 };
 
@@ -74,12 +70,16 @@ function hideHeaderBG() {
 
 function hoverMusicTimeBar(isEntering){
     const musicTimeBar = document.getElementById("musicTimeBar");
+    const tipMusicTimeBar = document.getElementById("tipMusicTimeBar");
+    
     if (isEntering) {
         musicTimeBar.style.backgroundColor = "rgb(22 163 74 / var(--tw-bg-opacity))";
+        tipMusicTimeBar.style.display =  "block";
     } else {
         musicTimeBar.style.backgroundColor = "rgb(255 255 255 / var(--tw-bg-opacity))";
+        tipMusicTimeBar.style.display =  "none";
     }
-}
+};
 
 // Atualzia o footer com as informações da música, futuramente será alterado...
 const refreshFooter = (data = null) => {
@@ -99,6 +99,7 @@ const refreshFooter = (data = null) => {
     const musicImage = document.getElementById("musicImage");
     const artistName = document.getElementById("artistName");
     const musicName = document.getElementById("musicName");
+    const musicTimeBarBack = document.getElementById("musicTimeBarBackground");
     let element;
 
     if (data == null) {
@@ -130,8 +131,12 @@ const refreshFooter = (data = null) => {
             element.style.opacity = "1";
         };
         backgroundPlayPause.style.backgroundColor = "rgb(255 255 255 / var(--tw-bg-opacity))";
+
+        const totalSecondsCurrentMusic = Helper.getTimeInSeconds(finTimeMusic.textContent);
+        const widthMusicTimeBar = musicTimeBarBack.clientWidth;
+        pxPerSecond = widthMusicTimeBar / totalSecondsCurrentMusic;
     }
-}
+};
 
 // Abre/fecha o modal de ordenação
 function orderByClick(forceClose) { 
@@ -156,7 +161,7 @@ function playPauseMusic() {
         audio.pause();
         timerMusic(false);
     } else {
-        audio.play();
+        // audio.play();
         timerMusic(true);
     }
 };
@@ -204,15 +209,22 @@ async function onLoad() { // Ao carregar a tela principal
     }
 };
 
-// Inicializa ou pausa o contador da música
+// Inicializa ou pausa o contador da música (não roda a cada segundo para melhorar a precisão )
 async function timerMusic(count) { 
     if (count) {
         musicTimer = setInterval(function() {
+            const musicTimeBar = document.getElementById("musicTimeBar");
             const initTimeMusic = document.getElementById("initTimeMusic");
             const { minutes, seconds } = Helper.getMinutesAndSeconds(counter);
+            const finTimeMusic = document.getElementById("finTimeMusic");
+
             initTimeMusic.textContent = minutes + ":" + seconds;
+            if (counter > 10 && counter % 100 === 0) { // Se true significa que passou 1 segundo então move a timebar
+                musicTimeBar.style.width = (musicTimeBar.clientWidth + pxPerSecond) + "px";
+            }
+
             counter++;
-            if (counter > Helper.getTimeInMilliseconds("3:36")) {
+            if (counter > Helper.getTimeInMilliseconds(finTimeMusic.textContent)) {
                 clearInterval(musicTimer);
             }
         }, 10);
